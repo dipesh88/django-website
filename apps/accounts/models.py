@@ -8,6 +8,6 @@ from django.db import models
 class Account(models.Model):
     
     divorcee1 = models.ForeignKey(User,related_name="divorcee1_account")
-    divorcee2 = models.ForeignKey(User,related_name="divorcee2_account",blank=True)
+    divorcee2 = models.ForeignKey(User,related_name="divorcee2_account",blank=True,null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     
