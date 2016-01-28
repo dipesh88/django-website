@@ -1,7 +1,7 @@
 import logging
 import sys
 from django.http import Http404
-from cache.API import get_user_cache,set_user_cache
+from ..cache.API import get_user_cache,set_user_cache
 
 from ..apps.accounts.API import get_account_by_user,get_divorcee_by_account
 

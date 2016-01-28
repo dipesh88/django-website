@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^sign-up/$', auth_views.SignUpView.as_view(), name='sign_up_simple'),
     url(r'^login/$', auth_views.LoginView.as_view(), name='login_simple'),
     url(r'^logout/$', auth_views.logout_user, name='logout_simple'),
+    
+    url(r'^expenses/', include('site_repo.apps.expenses.urls',namespace='expenses')),
 ]
 
 if settings.DEBUG:
