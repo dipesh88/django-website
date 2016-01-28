@@ -1,14 +1,13 @@
-from django.shortcuts import render
-
+from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-
 from django.contrib.auth.models import User
+from django.shortcuts import render
 from django.views import generic
 
 
-from django.contrib.auth import authenticate, login
-
 class SignUpView(generic.edit.CreateView):
+    
     form_class = UserCreationForm
     model = User
     template_name = 'auth/signup.html'
@@ -32,3 +31,11 @@ class LoginView(generic.edit.FormView):
         else:
             return self.form_invalid(form)   
         
+
+def logout_user(request):
+    
+    logout(request)
+    return HttpResponseRedirect("/login/")
+    
+    
+    
