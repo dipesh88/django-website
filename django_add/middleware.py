@@ -1,6 +1,9 @@
 import logging
 import sys
 from django.http import Http404
+from cache.API import get_user_cache,set_user_cache
+
+from ..apps.accounts.API import get_account_by_user,get_divorcee_by_account
 
 class LogExceptions(object):
     """logs any unhandled views exceptions, ignores Http404"""
@@ -14,3 +17,27 @@ class LogExceptions(object):
         logging.getLogger('main').critical(exception,exc_info=sys.exc_info())
         
         return
+    
+class UserAttribute(object):
+    """adds additional useful attributes to auth user object"""
+    
+    def process_view(self,request,view_func,*args,**kwargs):
+ 
+        if request.user.is_authenticated():
+            account,divorcee = None,None            
+            try:
+                D = get_user_cache(request.user)
+                account = D['account']
+                divorcee = D['divorcee']
+            except:
+                account = get_account_by_user(request.user)
+                divorcee = get_divorcee_by_account(account,request.user)
+                set_user_cache(request.user,{'account':account,'divorcee':divorcee})
+            finally:  
+                request.user.account = account
+                request.user.divorcee = divorcee            
+                return None
+                
+
+    
+    

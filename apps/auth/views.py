@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.views import generic
 
+from ...cache.API import clear_user_cache
 
 class SignUpView(generic.edit.CreateView):
     
@@ -34,6 +35,7 @@ class LoginView(generic.edit.FormView):
 
 def logout_user(request):
     
+    clear_user_cache(request.user)
     logout(request)
     return HttpResponseRedirect("/login/")
     
