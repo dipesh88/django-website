@@ -26,7 +26,7 @@ class Expense(models.Model):
                                                                 MaxValueValidator(100)])
                                                                    
     desc = models.CharField(max_length=512)
-    slug = models.SlugField(max_length=128)
+    slug = models.SlugField(max_length=128,blank=True)
     place_of_purchase = models.CharField(max_length=512)
     notes = models.CharField(max_length=1024,blank=True)
 
