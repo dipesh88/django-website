@@ -9,6 +9,7 @@ from django.template.defaultfilters import slugify
 from site_repo.django_add.validators import verify_month_int
 
 from ..accounts.models import Account
+from ..accounts.API import get_account_by_user
 
 
 class Expense(models.Model):
@@ -19,7 +20,7 @@ class Expense(models.Model):
     year_balanced = models.IntegerField()
 
     owner = models.ForeignKey(User,related_name='expenses')
-    account = models.ForeignKey(Account,related_name='expenses')
+    account = models.ForeignKey(Account,related_name='expenses',blank=True,null=True)
 
     expense_sum = models.FloatField()
     expense_divorcee_participate = models.IntegerField(validators=[MinValueValidator(0),
@@ -36,6 +37,10 @@ class Expense(models.Model):
     def save(self,*args,**kwargs):
 
         self.slug = slugify(self.desc)
+        try:
+            self.account = self.owner.account
+        except:
+            self.account = get_account_by_user(self.owner)
         super(Expense,self).save(*args,**kwargs)
 
 
