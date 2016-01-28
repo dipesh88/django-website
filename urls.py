@@ -20,10 +20,13 @@ from django.contrib.staticfiles import views
 from django.conf.urls.static import static
 
 from home.views import home_page
+from apps.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', home_page, name='hello-world'),
+    url(r'^sign-up/$', auth_views.SignUpView.as_view(), name='sign_up_simple'),
+     url(r'^login/$', auth_views.LoginView.as_view(), name='login_simple'),
 ]
 
 if settings.DEBUG:
