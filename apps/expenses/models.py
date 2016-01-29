@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator,MaxValueValidator
 from django.template.defaultfilters import slugify
 
@@ -41,7 +42,15 @@ class Expense(models.Model):
             self.account = self.owner.account
         except:
             self.account = get_account_by_user(self.owner)
+        if not self.can_update():
+            raise ValidationError(message="Account is balanced for this month, can't add or update expenses")        
+        
         super(Expense,self).save(*args,**kwargs)
+        
+    def can_update(self):
+        
+        return not (self.account.locked_expenses(month=self.month_balanced,
+                                               year=self.year_balanced))
 
 
 
