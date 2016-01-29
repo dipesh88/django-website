@@ -276,3 +276,5 @@ if DATABASES['default']['PASSWORD'] == 'imnotsecret' + 'djangomysqlpassword':
 
 
 
+
+TEMPLATE_DEBUG = True
