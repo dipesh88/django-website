@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.views import generic
 
 import datetime
@@ -6,6 +6,18 @@ import datetime
 from .models import Expense
 from .forms import AddExpenseForm
 
+class ExpenseView(generic.DetailView):
+    
+    template_name = "expenses/expense_details.html"
+    context_object_name = "expense"
+    
+    def get_object(self):
+               
+        object =  get_object_or_404(Expense,pk=int(self.kwargs['pk']),
+                                    account=self.request.user.account)
+        return object
+    
+    
 class AddExpenseView(generic.CreateView):
     
     model = Expense

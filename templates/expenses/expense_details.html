@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+
+{% block body %}
+    
+    <h2> Expense Details: </h2>
+    <p> {{ expense.date_entered }} </p>
+    <p> {{ expense.date_purchased }} </p>
+    <p> {{ expense.year_balanced }} </p>
+    <p> {{ expense.month_balanced }} </p>
+    <p> {{ expense.expense_sum }} </p>
+    <p> {{ expense.expense_divorcee_participate }} </p>
+    <p> {{ expense.desc }} </p>
+    <p> {{ expense.place_of_purchase }} </p>
+    <p> {{ expense.notes }} </p>
+    <p> {{ expense.is_approved }} </p>
+    
+    
+{% endblock body %}
+
+    
