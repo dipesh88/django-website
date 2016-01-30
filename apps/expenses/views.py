@@ -21,21 +21,21 @@ class MonthlyExpensesAllView(MonthlyExpensesBaseView):
     
     def get_queryset(self):
         
-        queryset = super(MonthlyExpensesAll,self).get_queryset()
+        queryset = super(MonthlyExpensesAllView,self).get_queryset()
         return queryset.all()
     
 class MonthlyExpensesMyView(MonthlyExpensesBaseView):
     
     def get_queryset(self):
         
-        queryset = super(MonthlyExpensesMy,self).get_queryset()
+        queryset = super(MonthlyExpensesMyView,self).get_queryset()
         return queryset.filter(owner=self.request.user)
     
 class MonthlyExpensesDivorceeView(MonthlyExpensesBaseView):
     
     def get_queryset(self):
         
-        queryset = super(MonthlyExpensesDivorcee,self).get_queryset()
+        queryset = super(MonthlyExpensesDivorceeView,self).get_queryset()
         return queryset.filter(owner=self.request.user.divorcee)
     
     
