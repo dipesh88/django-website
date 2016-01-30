@@ -18,6 +18,12 @@ class ExpenseOwnerForm(forms.ModelForm):
         model = Expense
         fields = Lowner_edit_fields
         
+class ExpenseApproveForm(forms.ModelForm):
+    
+    class Meta:
+        model = Expense
+        fields = ['is_approved']    
+        
         
     
         

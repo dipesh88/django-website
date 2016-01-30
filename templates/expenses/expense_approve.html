@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+
+{% block body %}
+    
+    <h2> Approve Expense: </h2>
+    <p> {{ expense.date_entered }} </p>
+    <p> {{ expense.date_purchased }} </p>
+    <p> {{ expense.year_balanced }} </p>
+    <p> {{ expense.month_balanced }} </p>
+    <p> {{ expense.expense_sum }} </p>
+    <p> {{ expense.expense_divorcee_participate }} </p>
+    <p> {{ expense.desc }} </p>
+    <p> {{ expense.place_of_purchase }} </p>
+    <p> {{ expense.notes }} </p>
+    
+    <form action='' method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input type="submit" value="Save"> </form>
+
+{% endblock body %}

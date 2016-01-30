@@ -4,8 +4,31 @@ from django.views import generic
 import datetime
 
 from .models import Expense
-from .forms import ExpenseOwnerForm
+from .forms import ExpenseOwnerForm,ExpenseApproveForm
 
+class ApproveExpenseView(generic.UpdateView):
+    
+    template_name = "expenses/expense_approve.html"
+    model = Expense
+    context_object_name = "expense"
+    form_class = ExpenseApproveForm
+    
+    def get_object(self):
+        
+        if hasattr(self,"object"):
+            return self.object
+        
+        object =  get_object_or_404(Expense,pk=int(self.kwargs['pk']),
+                                    account=self.request.user.account)
+        return object
+    
+    def get(self, request, *args, **kwargs):
+        
+        self.object = self.get_object()
+        if self.object.owner != request.user and  self.object.can_update():
+            return super(ApproveExpenseView, self).get(request, *args, **kwargs)
+        else:
+            return redirect(self.object.get_absolute_url()) 
 
 class EditExpenseView(generic.UpdateView):
     
@@ -25,7 +48,8 @@ class EditExpenseView(generic.UpdateView):
     def get(self, request, *args, **kwargs):
         
         self.object = self.get_object()
-        if self.object.owner == request.user and  self.object.can_update():
+        expense = self.object
+        if expense.owner == request.user and not(expense.is_approved) and expense.can_update() :
             return super(EditExpenseView, self).get(request, *args, **kwargs)
         else:
             return redirect(self.object.get_absolute_url())        
