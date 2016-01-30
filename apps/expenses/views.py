@@ -6,6 +6,41 @@ import datetime
 from .models import Expense
 from .forms import ExpenseOwnerForm,ExpenseApproveForm
 
+class MonthlyExpensesBaseView(generic.ListView):
+    
+    allow_empty = False
+    model = Expense
+    template_name = 'expenses/expenses_month.html'
+    
+    def get_queryset(self):
+        
+        return Expense.monthly_expenses.by_month(month=int(self.kwargs['month']),
+                                                       year=int(self.kwargs['year'])).filter(account=self.request.user.account)
+    
+class MonthlyExpensesAllView(MonthlyExpensesBaseView):
+    
+    def get_queryset(self):
+        
+        queryset = super(MonthlyExpensesAll,self).get_queryset()
+        return queryset.all()
+    
+class MonthlyExpensesMyView(MonthlyExpensesBaseView):
+    
+    def get_queryset(self):
+        
+        queryset = super(MonthlyExpensesMy,self).get_queryset()
+        return queryset.filter(owner=self.request.user)
+    
+class MonthlyExpensesDivorceeView(MonthlyExpensesBaseView):
+    
+    def get_queryset(self):
+        
+        queryset = super(MonthlyExpensesDivorcee,self).get_queryset()
+        return queryset.filter(owner=self.request.user.divorcee)
+    
+    
+
+
 class ApproveExpenseView(generic.UpdateView):
     
     template_name = "expenses/expense_approve.html"

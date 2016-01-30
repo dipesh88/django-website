@@ -13,6 +13,14 @@ from site_repo.django_add.validators import verify_month_int
 from ..accounts.models import Account
 from ..accounts.API import get_account_by_user
 
+class MonthlyExpensesManager(models.Manager):
+    
+    def by_month(self,month,year):
+        
+        queryset = super(MonthlyExpensesManager,self).get_queryset()
+        return queryset.filter(month_balanced=month,year_balanced=year)
+    
+
 
 class Expense(models.Model):
 
@@ -35,6 +43,7 @@ class Expense(models.Model):
 
     is_approved = models.BooleanField(default=False)
 
+    monthly_expenses = MonthlyExpensesManager()
 
     def get_absolute_url(self):
         

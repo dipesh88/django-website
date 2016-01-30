@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 # Create your models here.
@@ -14,8 +15,12 @@ class Account(models.Model):
     
     def locked_expenses(self,month,year):
         
-        balance = self.months_balanced.get(month_of_balance=month,
-                                           year_of_balance=year)
+        try:
+            balance = self.months_balanced.get(month_of_balance=month,
+                                               year_of_balance=year)
         
-        return balance.divorcee1 != None or balance.divorcee2 != None
+            return balance.divorcee1 != None or balance.divorcee2 != None
+        except ObjectDoesNotExist:
+            # First balance for month created after first expense in account for that month is saved
+            return False
     

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+
+{% block body %}
+    
+    <p> {{ expense.date_entered }} </p>
+    
+    <p> {{ expense.year_balanced }} </p>
+    <p> {{ expense.month_balanced }} </p>
+    <p> {{ expense.expense_sum }} </p>
+    <p> {{ expense.expense_divorcee_participate }} </p>
+    <p> {{ expense.desc }} </p>
+    <p> {{ expense.place_of_purchase }} </p>
+    <p> {{ expense.notes }} </p>
+    <p> {{ expense.is_approved }} </p>
+    
+    <table>
+        <tr>
+            <th> Approved? </th>
+            <th> Description </th>
+             <th> Purchased By </th>
+            <th> Sum </th>
+            <th> % Divorcee Participate </th>    
+            
+            <th> Date Purchased </th>
+        </tr>
+            
+        {% for expense in object_list %}
+            <tr>
+                <td> {{ expense.is_approved }} </td>                
+                <td> <a href=" {{ expense.get_absolute_url }}"> {{ expense.desc }} </a> </td>
+                <td> {{ expense.owner.username }} </td>
+                <td> {{ expense.expense_sum }} </td>
+                <td> {{ expense.expense_divorcee_participate }} </td>  
+                
+                <td> {{ expense.date_purchased }} </td>
+            </tr>
+        
+       {% endfor %}
+              
+    </table>
+
+{% endblock body %}
