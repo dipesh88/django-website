@@ -12,7 +12,7 @@ Lowner_edit_fields = ['date_purchased',
                       'notes' ]
 
 
-class AddExpenseForm(forms.ModelForm):
+class ExpenseOwnerForm(forms.ModelForm):
     
     class Meta:
         model = Expense

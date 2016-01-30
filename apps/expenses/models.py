@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator,MaxValueValidator
+from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
 from site_repo.django_add.validators import verify_month_int
@@ -35,6 +36,11 @@ class Expense(models.Model):
     is_approved = models.BooleanField(default=False)
 
 
+    def get_absolute_url(self):
+        
+        return reverse('expenses:details',args=[str(self.pk),self.slug])
+        
+        
     def save(self,*args,**kwargs):
 
         self.slug = slugify(self.desc)
