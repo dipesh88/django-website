@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+
+{% block body %}
+    
+    <h2> Month Balance: </h2>
+    <p> {{ month_balance.month_of_balance }}
+    <p> {{ month_balance.year_of_balance }}
+    <p> {{ month_balance.me_cleared }}
+    <p> {{ month_balance.divorcee_cleared }}
+
+{% endblock body %}

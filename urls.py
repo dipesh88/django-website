@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout_user, name='logout_simple'),
     
     url(r'^expenses/', include('site_repo.apps.expenses.urls',namespace='expenses')),
+    url(r'^balance/', include('site_repo.apps.balance.urls',namespace='balance')),
 ]
 
 if settings.DEBUG:

@@ -24,6 +24,13 @@ class MonthlyBalance(models.Model):
     
     is_balanced = models.BooleanField(default=False)
     
+    def divorcee_cleared_month(self,user):
+        
+        if user != None:
+            return self.divorcee1 == user or self.divorcee2 == user
+        else:
+            return False
+    
     
 @receiver(post_save,sender=Expense)
 def first_expense_for_month(*args,**kwargs):
