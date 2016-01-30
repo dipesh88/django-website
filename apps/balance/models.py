@@ -7,6 +7,9 @@ from site_repo.django_add.validators import verify_month_int
 
 class MonthlyBalance(models.Model):
     
+    class Meta:
+            unique_together =('month_of_balance','year_of_balance','account')  
+    
     month_of_balance = models.IntegerField(validators=[verify_month_int])
     year_of_balance = models.IntegerField()
     
