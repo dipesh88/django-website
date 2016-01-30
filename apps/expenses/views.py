@@ -25,12 +25,11 @@ class EditExpenseView(generic.UpdateView):
     def get(self, request, *args, **kwargs):
         
         self.object = self.get_object()
-        if not self.object.can_update():
+        if self.object.owner == request.user and  self.object.can_update():
+            return super(EditExpenseView, self).get(request, *args, **kwargs)
+        else:
             return redirect(self.object.get_absolute_url())        
         
-        return super(EditExpenseView, self).get(request, *args, **kwargs)
-    
-    
     
 class ExpenseView(generic.DetailView):
     
@@ -53,11 +52,11 @@ class AddExpenseView(generic.CreateView):
     success_url = "/"
     
     n = datetime.datetime.now()
-    initial={'date_purchased':n,
-             'month_balanced':n.month,
-             'year_balanced':n.year,
-             'expense_divorcee_participate':50
-             }    
+    initial = {'date_purchased':n,
+               'month_balanced':n.month,
+               'year_balanced':n.year,
+               'expense_divorcee_participate':50
+               }    
     
     
     def form_valid(self, form):
