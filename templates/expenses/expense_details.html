@@ -3,7 +3,7 @@
 
 
 {% block body %}
-    
+
     <h2> Expense Details: </h2>
     <p> {{ expense.date_entered }} </p>
     <p> {{ expense.date_purchased }} </p>
@@ -15,8 +15,24 @@
     <p> {{ expense.place_of_purchase }} </p>
     <p> {{ expense.notes }} </p>
     <p> {{ expense.is_approved }} </p>
+
+    {% if expense.can_update %}
     
-    
+        {% if expense.owner == request.user %}
+            {% if expense.is_approved %}                                
+                <p> Expense approved, no edits </p>                                               
+            {% else %}                                
+                <a href="{{ expense.get_edit_url }}"> Edit Expense </a>                                
+            {% endif %}
+
+        {% else %}
+            <a href="{{  expense.get_approve_url }}"> Approve/Disapprove Expense </a>
+        {% endif %}
+
+    {% else %}
+        <p> Expense locked, month balance </p>
+    {% endif %}
+
+
 {% endblock body %}
 
-    
