@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.views import generic
 
@@ -19,7 +20,7 @@ class LoginView(generic.edit.FormView):
     
     form_class = AuthenticationForm
     template_name = 'auth/login.html'
-    success_url = '/'
+    success_url = reverse_lazy("expenses:main_redirect")
     
     def form_valid(self, form):
         
