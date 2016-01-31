@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 
+{% block top_nav %}        
+        <p class="navbar-text navbar-right"> Signed in as {{ request.user.username }} </p>
+        <a href="{% url 'logout_simple' %}" class="btn navbar-btn btn-default navbar-right"> Logout </a> 
+        <a href="{% url 'expenses:add' %}" class="btn navbar-btn btn-default navbar-right"> Add Expense... </a>               
+{% endblock top_nav %}
+
+
 {% block body %}
 
-    
     <div class="page-header">
         <h1>
             {% block page_title %} {% endblock page_title %}             
