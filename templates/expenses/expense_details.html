@@ -1,10 +1,13 @@
-{% extends "base.html" %}
+{% extends "base_login.html" %}
 {% load static from staticfiles %}
 
 
-{% block body %}
+{% block page_title %} Expense Details: {% endblock page_title %} 
 
-    <h2> Expense Details: </h2>
+{% block main_content %}
+    
+    
+    
     <p> {{ expense.date_entered }} </p>
     <p> {{ expense.date_purchased }} </p>
     <p> {{ expense.year_balanced }} </p>
@@ -34,5 +37,5 @@
     {% endif %}
 
 
-{% endblock body %}
+{% endblock main_content %}
 

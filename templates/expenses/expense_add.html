@@ -1,13 +1,14 @@
-{% extends "base.html" %}
+{% extends "base_login.html" %}
 {% load static from staticfiles %}
 
-
-{% block body %}
+{% block page_title %} Add Expense:{% endblock page_title %} 
     
-    <h2> Add Expense: </h2>
+{% block main_content %}
+    
+    
     <form action='' method="POST">
         {% csrf_token %}
         {{ form.as_p }}
     <input type="submit" value="Save"> </form>
 
-{% endblock body %}
+{% endblock main_content %}

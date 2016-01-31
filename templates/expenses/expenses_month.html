@@ -1,19 +1,11 @@
-{% extends "base.html" %}
+{% extends "base_login.html" %}
 {% load static from staticfiles %}
 
 
-{% block body %}
+{% block page_title %} Monthly Expenses: {% endblock page_title %}
+
+{% block main_content %}
     
-    <p> {{ expense.date_entered }} </p>
-    
-    <p> {{ expense.year_balanced }} </p>
-    <p> {{ expense.month_balanced }} </p>
-    <p> {{ expense.expense_sum }} </p>
-    <p> {{ expense.expense_divorcee_participate }} </p>
-    <p> {{ expense.desc }} </p>
-    <p> {{ expense.place_of_purchase }} </p>
-    <p> {{ expense.notes }} </p>
-    <p> {{ expense.is_approved }} </p>
     
     <table>
         <tr>
@@ -41,4 +33,4 @@
               
     </table>
 
-{% endblock body %}
+{% endblock main_content %}

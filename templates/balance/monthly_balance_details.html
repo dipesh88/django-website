@@ -1,13 +1,15 @@
-{% extends "base.html" %}
+{% extends "base_login.html" %}
 {% load static from staticfiles %}
 
 
-{% block body %}
-    
-    <h2> Month Balance: </h2>
+{% block page_title %} Month Balance:  {% endblock page_title %}
+
+
+{% block main_content %}
+        
     <p> {{ month_balance.month_of_balance }}
     <p> {{ month_balance.year_of_balance }}
     <p> {{ month_balance.me_cleared }}
     <p> {{ month_balance.divorcee_cleared }}
 
-{% endblock body %}
+{% endblock main_content %}

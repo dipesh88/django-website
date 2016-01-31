@@ -1,13 +1,15 @@
-{% extends "base.html" %}
+{% extends "base_login.html" %}
 {% load static from staticfiles %}
 
 
-{% block body %}
+{% block page_title %} Edit Expense:  {% endblock page_title %} 
+
+{% block main_content %}
     
-    <h2> Edit Expense: </h2>
+    
     <form action='' method="POST">
         {% csrf_token %}
         {{ form.as_p }}
     <input type="submit" value="Save"> </form>
     <a href="{{ expense.get_absolute_url }}"> Cancel </a>
-{% endblock body %}
+{% endblock main_content %}
