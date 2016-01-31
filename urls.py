@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.LoginView.as_view(), name='login_simple'),
     url(r'^logout/$', auth_views.logout_user, name='logout_simple'),
     
+    url(r'^settings/', include('site_repo.apps.users.urls',namespace='users')),
     url(r'^expenses/', include('site_repo.apps.expenses.urls',namespace='expenses')),
     url(r'^balance/', include('site_repo.apps.balance.urls',namespace='balance')),
 ]

@@ -14,9 +14,7 @@ class MainExpensesRedirectView(generic.RedirectView):
         n = datetime.date.today()
         return reverse("expenses:monthly_all",kwargs={'month':n.month,'year':n.year})
         
-    
-    
-
+ 
 
 class MonthlyExpensesBaseView(generic.ListView):
     

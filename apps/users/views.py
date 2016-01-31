@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+from django.views import generic
+
+
+class UserSettingsView(generic.TemplateView):
+    
+    template_name = "users/user_settings.html"

@@ -1,7 +1,29 @@
+import datetime
+from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.views import generic
 
 from .models import MonthlyBalance
+
+class MainBalanceRedirectView(generic.RedirectView):
+    
+    def get_redirect_url(self):
+        
+        n = datetime.datetime.today()
+        return reverse("balance:year",kwargs={'year':n.year})
+        
+
+
+class YearlyMonthBalanceView(generic.ListView):
+    
+    template_name = 'balance/monthly_balance_year.html'
+    
+    def get_queryset(self):
+        
+        queryset = MonthlyBalance.objects.filter(account=self.request.user.account,
+                                                 year_of_balance=self.kwargs['year'])
+        return queryset
+
 
 class ClearMonthBalanceView(generic.DetailView):
     

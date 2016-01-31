@@ -1,0 +1,22 @@
+{% extends "base_login.html" %}
+{% load static from staticfiles %}
+
+
+{% block page_title %} Month Balances:  {% endblock page_title %}
+
+
+{% block main_content %}
+
+    <table>
+        <tr>
+            <th> Month </th>
+        </tr>
+        {% for balance in object_list %}
+            <tr>
+                <td>{{  balance.month_of_balance }} </td>
+            </tr>
+        
+        {% endfor %}
+    </table>
+
+{% endblock main_content %}

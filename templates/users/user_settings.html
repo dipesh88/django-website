@@ -1,0 +1,10 @@
+{% extends "base_login.html" %}
+{% load static from staticfiles %}
+
+{% block page_title %} User Settings:{% endblock page_title %} 
+    
+{% block main_content %}
+    
+   Username: {{ request.user }}
+
+{% endblock main_content %}
