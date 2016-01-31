@@ -1,10 +1,22 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views import generic
+from django.core.urlresolvers import reverse
 
 import datetime
 
 from .models import Expense
 from .forms import ExpenseOwnerForm,ExpenseApproveForm
+
+class MainExpensesRedirectView(generic.RedirectView):
+    
+    def get_redirect_url(self,*arg,**kwargs):
+        
+        n = datetime.date.today()
+        return reverse("expenses:monthly_all",kwargs={'month':n.month,'year':n.year})
+        
+    
+    
+
 
 class MonthlyExpensesBaseView(generic.ListView):
     
