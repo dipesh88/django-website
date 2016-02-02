@@ -1,24 +1,24 @@
 {% extends "base_login.html" %}
 {% load static from staticfiles %}
+{% load global_tags %}
 
 {% block sidebar_item %} "balance" {% endblock sidebar_item %}
-{% block page_title %} Month Balance:  {% endblock page_title %}
+{% block page_title %} Month Balance  {% endblock page_title %}
 
 
 {% block main_content %}
         
-    <p> {{ balance.month_of_balance }}
-    <p> {{ balance.year_of_balance }}
-    <p> {{ balance.me_cleared }}
-    <p> {{ balance.divorcee_cleared }}
+    <p> {{ balance.month_of_balance|intmonth }},{{ balance.year_of_balance }} </p>
+    <p> {{ balance.me_cleared }} </p>
+    <p>  {{ balance.divorcee_cleared}} </p>
     
     
-    <p>{{  balance.user_sum }} <p>
-    <p>{{  balance.divorcee_participate }} <p>
-    <p>{{  balance.divorcee_sum }} <p>
-    <p>{{  balance.user_participate }} <p>
-    <p>{{  balance.user_net }} <p>
-    <p>{{  balance.divorcee_net }} <p>
+    <p>{{  balance.user_sum|currencyformat }} <p>
+    <p>{{  balance.divorcee_participate|currencyformat }} <p>
+    <p>{{  balance.divorcee_sum|currencyformat }} <p>
+    <p>{{  balance.user_participate|currencyformat }} <p>
+    <p>{{  balance.user_net|currencyformat }} <p>
+    <p>{{  balance.divorcee_net|currencyformat }} <p>
     
     
     

@@ -34,6 +34,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'site_repo.django_add.templates',
     'site_repo.home',
     'site_repo.apps.accounts',
     'site_repo.apps.balance',

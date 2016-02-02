@@ -1,13 +1,14 @@
 {% extends "base_login.html" %}
 {% load static from staticfiles %}
+{% load global_tags %}
 
 {% block sidebar_item %} "balance" {% endblock sidebar_item %}
-{% block page_title %} Month Balances:  {% endblock page_title %}
+{% block page_title %} Months Balance  {% endblock page_title %}
 
 
 {% block main_content %}
 
-    <table>
+    <table class="table table-hover">
         <tr>
         
             <th> Month </th>
@@ -17,19 +18,21 @@
               <th> My Participate </th>
               <th> My Net </th>
               <th> Divorcee Net </th>
-              <th> Cleared </th>
+              <th> Status </th>
         </tr>
         {% for balance in object_list %}
             <tr>
             
-                <td>{{  balance.month_of_balance }} </td>
-                <td>{{  balance.user_sum }} </td>
-                <td>{{  balance.divorcee_participate }} </td>
-                <td>{{  balance.divorcee_sum }} </td>
-                <td>{{  balance.user_participate }} </td>
-                <td>{{  balance.user_net }} </td>
-                <td>{{  balance.divorcee_net }} </td>
-                <td> <a href="{{ balance.balance_object.get_absolute_url }}"> {{  balance.cleared }} </a> </td>
+                <td>
+                    <a href="{{ balance.balance_object.get_absolute_url }}"> {{  balance.month_of_balance|intmonth }} </a>
+                </td>
+                <td>{{  balance.user_sum|currencyformat }} </td>
+                <td>{{  balance.divorcee_participate|currencyformat }} </td>
+                <td>{{  balance.divorcee_sum|currencyformat }} </td>
+                <td>{{  balance.user_participate|currencyformat }} </td>
+                <td>{{  balance.user_net|currencyformat }} </td>
+                <td>{{  balance.divorcee_net|currencyformat }} </td>
+                <td>  {{  balance.cleared|striftrue:"Cleared" }}  </td>
             </tr>
         
         {% endfor %}

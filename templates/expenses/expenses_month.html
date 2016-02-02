@@ -1,32 +1,34 @@
 {% extends "base_login.html" %}
 {% load static from staticfiles %}
+{% load global_tags %}
 
 {% block sidebar_item %} "expenses" {% endblock sidebar_item %}
-{% block page_title %} Monthly Expenses: {% endblock page_title %}
+{% block page_title %} Monthly Expenses {% endblock page_title %}
 
 {% block main_content %}
     
     
-    <table>
+    <table class="table table-hover">
         <tr>
-            <th> Approved? </th>
+            
             <th> Description </th>
              <th> Purchased By </th>
             <th> Sum </th>
-            <th> % Divorcee Participate </th>    
-            
+            <th> Divorcee Participate </th>    
             <th> Date Purchased </th>
+            <th> Approval </th>
         </tr>
             
         {% for expense in object_list %}
             <tr>
-                <td> {{ expense.is_approved }} </td>                
+                                
                 <td> <a href=" {{ expense.get_absolute_url }}"> {{ expense.desc }} </a> </td>
                 <td> {{ expense.owner.username }} </td>
-                <td> {{ expense.expense_sum }} </td>
-                <td> {{ expense.expense_divorcee_participate }} </td>  
+                <td> {{ expense.expense_sum|currencyformat }} </td>
+                <td> {{ expense.expense_divorcee_participate }}% </td>  
                 
                 <td> {{ expense.date_purchased }} </td>
+                <td> {{ expense.is_approved|striftrue:"Approved" }} </td>
             </tr>
         
        {% endfor %}

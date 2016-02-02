@@ -1,5 +1,6 @@
 {% extends "base_login.html" %}
 {% load static from staticfiles %}
+{% load global_tags %}
 
 {% block sidebar_item %} "expenses" {% endblock sidebar_item %}
 {% block page_title %} Approve Expense:{% endblock page_title %} 
@@ -11,8 +12,8 @@
     <p> {{ expense.date_purchased }} </p>
     <p> {{ expense.year_balanced }} </p>
     <p> {{ expense.month_balanced }} </p>
-    <p> {{ expense.expense_sum }} </p>
-    <p> {{ expense.expense_divorcee_participate }} </p>
+    <p> {{ expense.expense_sum|currencyformat }} </p>
+    <p> {{ expense.expense_divorcee_participate|currencyformat }} </p>
     <p> {{ expense.desc }} </p>
     <p> {{ expense.place_of_purchase }} </p>
     <p> {{ expense.notes }} </p>
