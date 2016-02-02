@@ -7,18 +7,9 @@
 
 {% block page_nav %} 
     
-    <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ year }}  <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            {% for y in select_years %}
-                <li><a href="{% url "balance:year" y %}">{{ y }} </a></li>
-            {% endfor %}
-        </ul>
-    </div>
     
-   {% include "elements//dropdown_select_approved.html" %}
+   {% include "elements/dropdown_select_year_balance.html" %} 
+   {% include "elements/dropdown_select_approved_balance.html" %}
 
 {% endblock page_nav %}
 
