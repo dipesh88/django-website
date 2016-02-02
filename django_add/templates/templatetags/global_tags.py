@@ -6,7 +6,7 @@ register = template.Library()
 def intmonth(value):
     
     try:
-        return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][value]
+        return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][value-1]
     except:
         return value
     

@@ -8,7 +8,7 @@ LEFT JOIN (SELECT month_balanced,owner_id AS owner_id1,
 SUM(expense_sum) AS sum1,
 SUM(expense_sum/100*expense_divorcee_participate) AS participate2
 FROM expenses_expense
-WHERE year_balanced=%s AND owner_id=%s
+WHERE year_balanced=%s AND owner_id=%s {approved_clause}
 GROUP BY month_balanced) table_a
 ON table_all.month_balanced = table_a.month_balanced
 LEFT JOIN
@@ -16,7 +16,7 @@ LEFT JOIN
 SUM(expense_sum) AS sum2,
 SUM(expense_sum/100*expense_divorcee_participate) AS participate1
 FROM expenses_expense
-WHERE year_balanced=%s AND owner_id=%s
+WHERE year_balanced=%s AND owner_id=%s {approved_clause}
 GROUP BY month_balanced) table_b
 ON table_all.month_balanced = table_b.month_balanced
 """

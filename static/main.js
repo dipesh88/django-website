@@ -18,6 +18,14 @@ function set_sidebar(sidebar_item){
     }
     }
 
+function update_bootstrap_dropdown_button_by_selection(event){
+
+    selection = ($(this).children(":first").html());
+    $(this).parent().parent().children(":first").html(selection);
+
+
+}
+
 function show_static_info(){
 
 msg = "This alert is served from static files\n"

@@ -12,8 +12,7 @@
 {% block ready_script %} 
     {{ block.supe }}
     set_sidebar({% block sidebar_item %} "expenses" {% endblock sidebar_item %});
-
-
+    $(".dropdown-menu > li ").on("click",update_bootstrap_dropdown_button_by_selection);
 {% endblock ready_script %}
 
 {% block body %}

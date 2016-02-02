@@ -23,13 +23,16 @@ class YearlyMonthBalanceView(generic.ListView):
     
     def get_queryset(self):
         
-        queryset = MonthlyBalance.balance_aggregate.by_year(self.request.user,self.kwargs['year'])
+        self.approved = self.request.GET.get('approved','all')
+        assert self.approved in ['all','yes','no']
+        queryset = MonthlyBalance.balance_aggregate.by_year(self.request.user,self.kwargs['year'],self.approved)
         return queryset
     
     def get_context_data(self,*args,**kwargs):
         
         context = super(YearlyMonthBalanceView,self).get_context_data(*args,**kwargs)
         context['select_years'] = settings.YEARS_TO_FILTER_ON_GUI
+        context['approved'] =  {'all':'All','yes': 'Approved','no':'Not Approved'}[self.approved]
         return dict(context,**self.kwargs)
 
 

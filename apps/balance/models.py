@@ -16,16 +16,19 @@ from .sql import of_year,of_month
 
 class BalanceAggregateManager(models.Manager):
     
-    def _get_recs(self,user,year,month=None):
-        # args: account_id,year,year,divorcee1_id,year,divorcee2_id
+    def _get_recs(self,user,year,approved,month=None):
+        
+        
         args = [user.account.id,year,year,
                 user.id,year,user.divorcee.id]
+        approved_clause={'all':"",'yes':" AND is_approved=1 ",'no': " AND is_approved=0 "}[approved]
+       
         if month != None:
             sql = of_month
             args.append(month)
         else:
             sql = of_year
-        recs= run_sql(sql,args)
+        recs = run_sql(sql.format(approved_clause=approved_clause),args)
         Lresults = []
         for rec in recs:
             D = {'month_of_balance':rec[0],
@@ -56,13 +59,13 @@ class BalanceAggregateManager(models.Manager):
             
         return Lresults
     
-    def by_month(self,user,year,month):
+    def by_month(self,user,year,month,approved="all"):
         
-        return self._get_recs(user, int(year), int(month))[0]
+        return self._get_recs(user, int(year),approved, int(month))[0]
     
-    def by_year(self,user,year):
+    def by_year(self,user,year,approved="all"):
         
-        return self._get_recs(user, int(year))
+        return self._get_recs(user, int(year),approved)
     
 class Objects(models.Manager):
     pass
