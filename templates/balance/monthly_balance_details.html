@@ -9,16 +9,14 @@
 {% block main_content %}
         
     <p> {{ balance.month_of_balance|intmonth }},{{ balance.year_of_balance }} </p>
-    <p> {{ balance.me_cleared }} </p>
-    <p>  {{ balance.divorcee_cleared}} </p>
-    
-    
     <p>{{  balance.user_sum|currencyformat }} <p>
     <p>{{  balance.divorcee_participate|currencyformat }} <p>
     <p>{{  balance.divorcee_sum|currencyformat }} <p>
     <p>{{  balance.user_participate|currencyformat }} <p>
     <p>{{  balance.user_net|currencyformat }} <p>
     <p>{{  balance.divorcee_net|currencyformat }} <p>
+    <p> {{ balance.me_cleared }} </p>
+    <p>  {{ balance.divorcee_cleared}} </p>
     
     
     
