@@ -3,7 +3,10 @@
 {% block top_nav %}        
         <p class="navbar-text navbar-right"> Signed in as {{ request.user.username }} </p>
         <a href="{% url 'logout_simple' %}" class="btn navbar-btn btn-default navbar-right"> Logout </a> 
-        <a href="{% url 'expenses:add' %}" class="btn navbar-btn btn-default navbar-right"> Add Expense... </a>               
+        <a href="{% url 'expenses:add' %}" class="btn navbar-btn btn-default navbar-right">
+            <span  class="glyphicon glyphicon-plus" style="padding-right:5px;" aria-hidden="true"></span>
+            Add Expense...
+        </a>               
 {% endblock top_nav %}
 
 {% block ready_script %} 
@@ -34,7 +37,7 @@
             </li>
             <li role="presentation" id="sidebar-balance"> 
                 <a href="{% url 'balance:main_redirect' %}"> 
-                    <span  class="glyphicon glyphicon-pencil p-x-15" style="padding-right:15px;" aria-hidden="true"></span>Monthly Balance 
+                    <span  class="glyphicon glyphicon-calendar" style="padding-right:15px;" aria-hidden="true"></span>Monthly Balance 
                 </a>
             </li>
             <li role="presentation" id="sidebar-settings">
