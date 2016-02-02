@@ -21,9 +21,21 @@
     
     <div class="col-xs-2">    
         <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active"> <a href="{% url 'expenses:main_redirect' %}"> Expenses </a></li>
-            <li role="presentation"> <a href="{% url 'balance:main_redirect' %}"> Monthly Balance </a></li>
-            <li role="presentation"> <a href="{% url 'users:user_settings' %}"> Settings </a></li>
+            <li role="presentation" class="active">
+                <a href="{% url 'expenses:main_redirect' %}">
+                    <span class="glyphicon glyphicon-usd" style="padding-right:15px;" aria-hidden="true"></span> Expenses
+                </a>
+            </li>
+            <li role="presentation"> 
+                <a href="{% url 'balance:main_redirect' %}"> 
+                    <span  class="glyphicon glyphicon-pencil p-x-15" style="padding-right:15px;" aria-hidden="true"></span>Monthly Balance 
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="{% url 'users:user_settings' %}">
+                   <span class="glyphicon glyphicon-user" style="padding-right:15px;" aria-hidden="true">  Settings 
+                </a>
+            </li>
         </ul>
     </div>
     
