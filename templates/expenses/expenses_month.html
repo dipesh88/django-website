@@ -5,6 +5,12 @@
 {% block sidebar_item %} "expenses" {% endblock sidebar_item %}
 {% block page_title %} Monthly Expenses {% endblock page_title %}
 
+{% block page_nav %} 
+
+    {% include "elements/dropdown_select_approved_expenses.html" %}
+
+{% endblock page_nav %}
+
 {% block main_content %}
     
     
@@ -16,7 +22,7 @@
             <th> Sum </th>
             <th> Divorcee Participate </th>    
             <th> Date Purchased </th>
-            <th> Approval </th>
+            <th> Approved? </th>
         </tr>
             
         {% for expense in object_list %}
@@ -28,7 +34,15 @@
                 <td> {{ expense.expense_divorcee_participate }}% </td>  
                 
                 <td> {{ expense.date_purchased }} </td>
-                <td> {{ expense.is_approved|striftrue:"Approved" }} </td>
+                <td>
+                    
+                    {% if expense.is_approved %} 
+                        <span  class="glyphicon glyphicon-ok"  aria-hidden="true"></span>
+                    {% else %}
+                        <span> - </span>
+                    {% endif %}
+                
+                </td>
             </tr>
         
        {% endfor %}

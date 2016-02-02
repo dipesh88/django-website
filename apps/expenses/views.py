@@ -18,7 +18,6 @@ class MainExpensesRedirectView(generic.RedirectView):
 
 class MonthlyExpensesBaseView(generic.ListView):
     
-    allow_empty = False
     model = Expense
     template_name = 'expenses/expenses_month.html'
     
@@ -31,8 +30,18 @@ class MonthlyExpensesAllView(MonthlyExpensesBaseView):
     
     def get_queryset(self):
         
+        self.approved = self.request.GET.get('approved','all')
+        assert self.approved in ['all','yes','no']        
         queryset = super(MonthlyExpensesAllView,self).get_queryset()
+        if self.approved != 'all':
+            queryset = queryset.filter(is_approved=(self.approved=='yes'))
         return queryset.all()
+    
+    def get_context_data(self,*args,**kwargs):
+
+        context = super(MonthlyExpensesAllView,self).get_context_data(*args,**kwargs)
+        context['approved'] =  {'all':'All','yes': 'Approved','no':'Not Approved'}[self.approved]
+        return dict(context,**self.kwargs)    
     
 class MonthlyExpensesMyView(MonthlyExpensesBaseView):
     
