@@ -1,4 +1,5 @@
 import datetime
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.views import generic
@@ -24,6 +25,12 @@ class YearlyMonthBalanceView(generic.ListView):
         
         queryset = MonthlyBalance.balance_aggregate.by_year(self.request.user,self.kwargs['year'])
         return queryset
+    
+    def get_context_data(self,*args,**kwargs):
+        
+        context = super(YearlyMonthBalanceView,self).get_context_data(*args,**kwargs)
+        context['select_years'] = settings.YEARS_TO_FILTER_ON_GUI
+        return dict(context,**self.kwargs)
 
 
 class MonthBalanceView(generic.DetailView):

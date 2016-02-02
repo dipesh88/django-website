@@ -5,6 +5,20 @@
 {% block sidebar_item %} "balance" {% endblock sidebar_item %}
 {% block page_title %} Months Balance  {% endblock page_title %}
 
+{% block page_nav %} 
+    
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ year }}  <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            {% for y in select_years %}
+                <li><a href="{% url "balance:year" y %}">{{ y }} </a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock page_nav %}
 
 {% block main_content %}
 

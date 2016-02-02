@@ -17,6 +17,13 @@ import os
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(REPO_DIR)
 
+
+# App settings
+YEARS_TO_FILTER_ON_GUI = [2016,2017]
+
+
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'p#!smq)7&xp7o71s-l-8mld!j)+l6vep&*9a)6w3wuq%0d)#f2'
 
