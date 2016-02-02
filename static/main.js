@@ -1,3 +1,23 @@
+function set_sidebar(sidebar_item){
+    switch (sidebar_item){
+    case 'expenses':
+        {$("#sidebar-expenses").addClass("active");
+        $("#sidebar-balance").removeClass("active");
+        $("#sidebar-settings").removeClass("active");}
+        break;
+    case 'balance':
+        {$("#sidebar-expenses").removeClass("active");
+        $("#sidebar-balance").addClass("active");
+        $("#sidebar-settings").removeClass("active");}
+        break;
+    case 'settings':
+        {$("#sidebar-expenses").removeClass("active");
+        $("#sidebar-balance").removeClass("active");
+        $("#sidebar-settings").addClass("active");}
+        break;
+    }
+    }
+
 function show_static_info(){
 
 msg = "This alert is served from static files\n"
