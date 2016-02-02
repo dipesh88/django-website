@@ -44,8 +44,12 @@ class MonthBalanceView(generic.DetailView):
 
     def get_object(self):
         
+        self.approved = self.request.GET.get('approved','all')
+        assert self.approved in ['all','yes','no']        
         object = MonthlyBalance.balance_aggregate.by_month(user=self.request.user,
-                                                           year=self.kwargs['year'],month=self.kwargs['month'])
+                                                           year=self.kwargs['year'],
+                                                           month=self.kwargs['month'],
+                                                           approved=self.approved)
         
         L = [object['balance_object'].divorcee1,object['balance_object'].divorcee2]
         me_cleared = lang_balance.cleared if self.request.user in L else lang_balance.not_cleared
@@ -55,4 +59,10 @@ class MonthBalanceView(generic.DetailView):
         object['divorcee_cleared'] = divorcee_cleared%self.request.user.divorcee.username
         
         return object
+    
+    def get_context_data(self,*args,**kwargs):
+            
+            context = super(MonthBalanceView,self).get_context_data(*args,**kwargs)
+            context['approved'] =  {'all':'All','yes': 'Approved','no':'Not Approved'}[self.approved]
+            return dict(context,**self.kwargs)    
                 
