@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views import generic
 from django.core.urlresolvers import reverse
@@ -41,6 +42,7 @@ class MonthlyExpensesAllView(MonthlyExpensesBaseView):
 
         context = super(MonthlyExpensesAllView,self).get_context_data(*args,**kwargs)
         context['approved'] =  {'all':'All','yes': 'Approved','no':'Not Approved'}[self.approved]
+        context['select_years'] = settings.YEARS_TO_FILTER_ON_GUI
         return dict(context,**self.kwargs)    
     
 class MonthlyExpensesMyView(MonthlyExpensesBaseView):
