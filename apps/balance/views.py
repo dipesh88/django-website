@@ -20,23 +20,23 @@ class YearlyMonthBalanceView(generic.ListView):
     
     def get_queryset(self):
         
-        queryset = MonthlyBalance.objects.filter(account=self.request.user.account,
-                                                 year_of_balance=self.kwargs['year'])
+        queryset = MonthlyBalance.balance_aggregate.by_year(self.request.user,self.kwargs['year'])
         return queryset
 
 
-class ClearMonthBalanceView(generic.DetailView):
+class MonthBalanceView(generic.DetailView):
     
     model = MonthlyBalance
     template_name = 'balance/monthly_balance_details.html'
-    context_object_name = 'month_balance'
+    context_object_name = 'balance'
 
     def get_object(self):
         
-        object =  self.get_queryset().get(account=self.request.user.account,
-                                             month_of_balance=int(self.kwargs['month']),
-                                             year_of_balance=int(self.kwargs['year']))
-        object.me_cleared = object.divorcee_cleared_month(self.request.user)
-        object.divorcee_cleared = object.divorcee_cleared_month(self.request.user.divorcee)
+        object = MonthlyBalance.balance_aggregate.by_month(user=self.request.user,
+                                                           year=self.kwargs['year'],month=self.kwargs['month'])
+        
+        L = [object['balance_object'].divorcee1,object['balance_object'].divorcee2]
+        object['me_cleared'],object['divorcee_cleared'] = self.request.user in L,self.request.user.divorcee in L
+        
         return object
                 

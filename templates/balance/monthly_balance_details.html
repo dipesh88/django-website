@@ -7,9 +7,20 @@
 
 {% block main_content %}
         
-    <p> {{ month_balance.month_of_balance }}
-    <p> {{ month_balance.year_of_balance }}
-    <p> {{ month_balance.me_cleared }}
-    <p> {{ month_balance.divorcee_cleared }}
+    <p> {{ balance.month_of_balance }}
+    <p> {{ balance.year_of_balance }}
+    <p> {{ balance.me_cleared }}
+    <p> {{ balance.divorcee_cleared }}
+    
+    
+    <p>{{  balance.user_sum }} <p>
+    <p>{{  balance.divorcee_participate }} <p>
+    <p>{{  balance.divorcee_sum }} <p>
+    <p>{{  balance.user_participate }} <p>
+    <p>{{  balance.user_net }} <p>
+    <p>{{  balance.divorcee_net }} <p>
+    
+    
+    
 
 {% endblock main_content %}

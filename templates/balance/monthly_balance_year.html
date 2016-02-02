@@ -9,11 +9,27 @@
 
     <table>
         <tr>
+        
             <th> Month </th>
+             <th> My Expenses </th>
+              <th> Divorcee Participate </th>
+              <th> Divorcee Expenses </th>
+              <th> My Participate </th>
+              <th> My Net </th>
+              <th> Divorcee Net </th>
+              <th> Cleared </th>
         </tr>
         {% for balance in object_list %}
             <tr>
+            
                 <td>{{  balance.month_of_balance }} </td>
+                <td>{{  balance.user_sum }} </td>
+                <td>{{  balance.divorcee_participate }} </td>
+                <td>{{  balance.divorcee_sum }} </td>
+                <td>{{  balance.user_participate }} </td>
+                <td>{{  balance.user_net }} </td>
+                <td>{{  balance.divorcee_net }} </td>
+                <td> <a href="{{ balance.balance_object.get_absolute_url }}"> {{  balance.cleared }} </a> </td>
             </tr>
         
         {% endfor %}

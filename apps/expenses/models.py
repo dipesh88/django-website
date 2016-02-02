@@ -47,7 +47,7 @@ class Expense(models.Model):
     is_approved = models.BooleanField(default=False)
 
     monthly_expenses = MonthlyExpensesManager()
-    objects = Objects() #was not avialable w/o explicit assignment when other manager assigned
+    objects = Objects() # not avialable w/o explicit assignment when other manager assigned
     
 
     def get_absolute_url(self):
