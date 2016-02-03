@@ -28,7 +28,7 @@ class BalanceAggregateManager(models.Manager):
             args.append(month)
         else:
             sql = of_year
-        recs = run_sql(sql.format(approved_clause=approved_clause),args)
+        recs = run_sql(sql.format(approved_clause=approved_clause),*args)
         Lresults = []
         for rec in recs:
             D = {'month_of_balance':rec[0],
