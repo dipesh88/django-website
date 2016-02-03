@@ -46,6 +46,7 @@ class BalanceAggregateManager(models.Manager):
             D['user_participate'] = 0 if D['user_participate'] == None else D['user_participate']
             D['user_net'] = D['user_sum'] + D['user_participate'] - D['divorcee_participate']
             D['divorcee_net'] = D['divorcee_sum'] + D['divorcee_participate'] - D['user_participate']
+            D['total'] = D['user_sum'] + D['divorcee_sum']
             Lresults.append(D)
            
  

@@ -25,7 +25,9 @@
               <th> My Participate </th>
               <th> My Net </th>
               <th> Divorcee Net </th>
-              <th> Status </th>
+               <th> Total Expenses </th>
+               <th> Status </th>
+              
         </tr>
         {% for balance in object_list %}
             <tr>
@@ -33,13 +35,34 @@
                 <td>
                     <a href="{{ balance.balance_object.get_absolute_url }}"> {{  balance.month_of_balance|intmonth }} </a>
                 </td>
-                <td>{{  balance.user_sum|currencyformat }} </td>
+                <td>
+                {% if balance.user_sum > 0 %}
+                    <a href="{% url "expenses:monthly_all"  year balance.month_of_balance  %}?by=my"> 
+                        {{  balance.user_sum|currencyformat }} 
+                    </a>
+                {% else %} 0 {% endif %}
+                    
+                </td>
                 <td>{{  balance.divorcee_participate|currencyformat }} </td>
-                <td>{{  balance.divorcee_sum|currencyformat }} </td>
+                <td>
+                    {% if balance.divorcee_sum > 0 %}
+                    <a href="{% url "expenses:monthly_all"  year balance.month_of_balance  %}?by=divorcee">
+                        {{  balance.divorcee_sum|currencyformat }} 
+                    </a>
+                    {% else %} 0 {% endif %}
+                    </td>
                 <td>{{  balance.user_participate|currencyformat }} </td>
                 <td>{{  balance.user_net|currencyformat }} </td>
                 <td>{{  balance.divorcee_net|currencyformat }} </td>
+                <td>
+                    {% if balance.total > 0 %}
+                        <a href="{% url "expenses:monthly_all"  year balance.month_of_balance %}">
+                            {{  balance.total|currencyformat }}
+                        </a>
+                     {% else %} 0 {% endif %}
+                </td>
                 <td>  {{  balance.cleared|striftrue:"Cleared" }}  </td>
+                
             </tr>
         
         {% endfor %}
