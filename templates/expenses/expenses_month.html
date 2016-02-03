@@ -7,7 +7,9 @@
 
 {% block page_nav %} 
 
+    {% include "elements/dropdown_select_owner_expenses.html" %}
     {% include "elements/dropdown_select_approved_expenses.html" %}
+    {% include "elements/dropdown_select_month_expenses.html" %} 
     {% include "elements/dropdown_select_year_expenses.html" %}
 
 {% endblock page_nav %}

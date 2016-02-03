@@ -3,8 +3,8 @@
           {{ approved }}   <span class="caret"></span>
        </button>
        <ul class="dropdown-menu">
-               <li><a href="{{ request.path }}?approved=all">All </a></li>
-               <li><a href="{{ request.path }}?approved=yes">Approved </a></li>
-               <li><a href="{{ request.path }}?approved=no">Not Approved </a></li>
+               <li><a href="{{ request.path }}?approved=all&&{{ by_url_args }}">All </a></li>
+               <li><a href="{{ request.path }}?approved=yes&&{{ by_url_args }}">Approved </a></li>
+               <li><a href="{{ request.path }}?approved=no&&{{ by_url_args }}">Not Approved </a></li>
        </ul>
 </div>

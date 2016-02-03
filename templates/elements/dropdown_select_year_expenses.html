@@ -5,11 +5,7 @@
         <ul class="dropdown-menu">
             {% for y in select_years %}
                 <li>
-                    {% if request.GET.approved %}
-                        <a href="{% url "expenses:monthly_all" y month %}?approved={{ request.GET.approved }}">
-                    {% else %}
-                        <a href="{% url "expenses:monthly_all" y month %}">
-                    {% endif %}
+                        <a href="{% url "expenses:monthly_all" y month %}?{{ approved_url_args }}&&{{ by_url_args }}">
                     {{ y }} </a>                    
                 </li>
             {% endfor %}

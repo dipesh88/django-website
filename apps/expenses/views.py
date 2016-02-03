@@ -30,20 +30,35 @@ class MonthlyExpensesBaseView(generic.ListView):
 class MonthlyExpensesAllView(MonthlyExpensesBaseView):
     
     def get_queryset(self):
-        
+
         self.approved = self.request.GET.get('approved','all')
         assert self.approved in ['all','yes','no']        
+        self.by = self.request.GET.get('by','all')
+        assert self.approved in ['all','yes','no'] 
+        assert self.by in ['all','my','divorcee']
         queryset = super(MonthlyExpensesAllView,self).get_queryset()
         if self.approved != 'all':
             queryset = queryset.filter(is_approved=(self.approved=='yes'))
+        if self.by == 'my':
+            queryset = queryset.filter(owner=self.request.user)
+        elif self.by == 'divorcee':
+            queryset = queryset.filter(owner=self.request.user.divorcee)
+            
         return queryset.all()
+
     
     def get_context_data(self,*args,**kwargs):
-
+ 
         context = super(MonthlyExpensesAllView,self).get_context_data(*args,**kwargs)
         context['approved'] =  {'all':'All','yes': 'Approved','no':'Not Approved'}[self.approved]
+        context['by'] = {'all':'By All','my':'My','divorcee':'Divorcee'}[self.by]
         context['select_years'] = settings.YEARS_TO_FILTER_ON_GUI
-        return dict(context,**self.kwargs)    
+        context['select_months'] = range(1,13)
+        
+        context['approved_url_args'] = 'approved={approved}'.format(approved=self.approved)
+        context['by_url_args'] = 'by={by}'.format(by=self.by)
+        
+        return dict(context,**self.kwargs)
     
 class MonthlyExpensesMyView(MonthlyExpensesBaseView):
     
