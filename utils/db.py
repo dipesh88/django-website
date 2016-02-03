@@ -1,7 +1,7 @@
 from django.db import connections
 
 
-def run_sql(sql,args):
+def run_sql(sql,*args):
     
     try:
         connection = connections['default']

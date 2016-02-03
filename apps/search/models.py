@@ -1,11 +1,37 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-
 from django.db.models.signals import post_save
+from django.contrib.auth.models import User
 from django.dispatch import receiver
+
+from ...utils.db import run_sql
+from . import app_settings
 
 class Objects(models.Manager):
     pass
 
+
+class SearchResultsManager(models.Manager):
+    
+    def search(self,search_query):
+        
+        if app_settings.AUTO_WILDCARD:
+            search_query = search_query+app_settings.WILDCARD
+            
+        recs = run_sql(app_settings.SELECT,search_query,app_settings.MAX_ENTRIES)
+        
+        queryset = super(SearchResultsManager,self).get_queryset()
+        queryset = queryset.filter(id__in=[r[0] for r in recs])
+        
+        Lresults = []
+        all_models = User.objects.get(pk=1)._meta.apps.all_models
+        for item in queryset:
+            Ditem = {'name':item.object_name,
+                     'object':all_models[item.app_label][item.model_name].objects.get(pk=item.object_pk)}                     
+            Lresults.append(Ditem)
+        return Lresults
+        
+       
 
 class SearchItems(models.Model):
     
@@ -19,6 +45,7 @@ class SearchItems(models.Model):
     model_name = models.CharField(max_length=128)
     object_pk = models.IntegerField()
     
+    items = SearchResultsManager()
     objects = Objects()
     
     
@@ -52,6 +79,10 @@ def save_search_item(*args,**kwargs):
     item.save()    
    
     return
+
+
+    
+    
     
     
 
