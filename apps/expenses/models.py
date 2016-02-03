@@ -26,6 +26,10 @@ class Objects(models.Manager):
 
 
 class Expense(models.Model):
+    
+    class SearchConfig:
+        item_name_field = 'desc'
+        search_fields = ['place_of_purchase','notes']
 
     date_entered = models.DateTimeField(auto_now_add=True)
     date_purchased = models.DateField()
