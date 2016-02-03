@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save,post_delete
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 
@@ -80,7 +80,22 @@ def save_search_item(*args,**kwargs):
    
     return
 
-
+@receiver(post_delete)
+def delete_search_item(*args,**kwargs):
+    
+    instance = kwargs['instance']
+    if not hasattr(instance,'SearchConfig'):
+        return
+    
+    try:
+        item = SearchItems.objects.get(object_pk=instance.pk,
+                                       app_label=instance._meta.app_label,
+                                       model_name=instance._meta.model_name)
+        item.delete()
+        
+    except ObjectDoesNotExist:
+        return
+    
     
     
     
