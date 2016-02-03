@@ -15,6 +15,12 @@ function set_sidebar(sidebar_item){
         $("#sidebar-balance").removeClass("active");
         $("#sidebar-settings").addClass("active");}
         break;
+    case 'none':
+        {$("#sidebar-expenses").removeClass("active");
+        $("#sidebar-balance").removeClass("active");
+        $("#sidebar-settings").removeClass("active");}
+        break;
+        
     }
     }
 

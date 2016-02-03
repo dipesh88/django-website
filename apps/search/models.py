@@ -15,8 +15,8 @@ class SearchResultsManager(models.Manager):
     
     def search(self,search_query):
         
-        if app_settings.AUTO_WILDCARD:
-            search_query = search_query+app_settings.WILDCARD
+        if app_settings.AUTO_WILDCARD and app_settings.WILDCARD not in search_query:
+            search_query = search_query + app_settings.WILDCARD
             
         recs = run_sql(app_settings.SELECT,search_query,app_settings.MAX_ENTRIES)
         

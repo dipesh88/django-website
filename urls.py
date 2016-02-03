@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 
 from home.views import home_page
 from apps.auth import views as auth_views
+from apps.search.views import SearchView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -32,6 +33,8 @@ urlpatterns = [
     url(r'^settings/', include('site_repo.apps.users.urls',namespace='users')),
     url(r'^expenses/', include('site_repo.apps.expenses.urls',namespace='expenses')),
     url(r'^balance/', include('site_repo.apps.balance.urls',namespace='balance')),
+    
+    url(r'^search/$',SearchView.as_view(),name='search_view')
 ]
 
 if settings.DEBUG:
