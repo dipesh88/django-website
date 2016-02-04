@@ -1,7 +1,7 @@
 from django.conf import settings
 
 sql = """SELECT id FROM {db_name}.search_searchitems
-WHERE MATCH(object_name,search_text)
+WHERE object_account_id = %s AND MATCH(object_name,search_text)
 AGAINST (%s IN BOOLEAN MODE)
 LIMIT %s
 """.format(db_name=settings.DATABASES['default']['NAME'])

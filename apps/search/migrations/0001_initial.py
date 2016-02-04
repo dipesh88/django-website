@@ -15,6 +15,7 @@ CREATE TABLE `search_searchitems` (
     `app_label` varchar(128) NOT NULL,
     `model_name` varchar(128) NOT NULL,
     `object_pk` integer NOT NULL,
+    `object_account_id` integer NOT NULL,
     FULLTEXT KEY `name_info_search` (`object_name`,`search_text`)
     ) DEFAULT CHARSET=utf8
 """
@@ -28,6 +29,7 @@ CREATE TABLE `search_searchitems` (
     `app_label` varchar(128) NOT NULL,
     `model_name` varchar(128) NOT NULL,
     `object_pk` integer NOT NULL,
+    `object_account_id` integer NOT NULL,
     FULLTEXT KEY `name_info_search` (`object_name`,`search_text`)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 """

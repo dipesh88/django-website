@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 
 from ...utils.db import run_sql
+from ..accounts.models import Account
+from ..accounts.API import get_account_by_user
 from . import app_settings
 
 class Objects(models.Manager):
@@ -13,12 +15,12 @@ class Objects(models.Manager):
 
 class SearchResultsManager(models.Manager):
     
-    def search(self,search_query):
+    def search(self,account,search_query):
         
         if app_settings.AUTO_WILDCARD and app_settings.WILDCARD not in search_query:
             search_query = search_query + app_settings.WILDCARD
             
-        recs = run_sql(app_settings.SELECT,search_query,app_settings.MAX_ENTRIES)
+        recs = run_sql(app_settings.SELECT,account.id,search_query,app_settings.MAX_ENTRIES)
         
         queryset = super(SearchResultsManager,self).get_queryset()
         queryset = queryset.filter(id__in=[r[0] for r in recs])
@@ -44,6 +46,7 @@ class SearchItems(models.Model):
     app_label = models.CharField(max_length=128)
     model_name = models.CharField(max_length=128)
     object_pk = models.IntegerField()
+    object_account_id = models.IntegerField()
     
     items = SearchResultsManager()
     objects = Objects()
@@ -69,10 +72,13 @@ def save_search_item(*args,**kwargs):
     for field in search_fields_set:
         search_text = search_text + getattr(instance,field) + " "
         
+    
+    account = get_account_by_user(instance.owner)
 
     item = SearchItems.objects.get_or_create(object_pk=instance.pk,
                                              app_label=instance._meta.app_label,
-                                             model_name=instance._meta.model_name)[0]
+                                             model_name=instance._meta.model_name,
+                                             object_account_id=account.id)[0]
     
     item.object_name = getattr(instance,item_name_field)
     item.search_text = search_text

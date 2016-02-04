@@ -14,7 +14,8 @@ class SearchView(generic.ListView):
         try:
             q = SearchForm({'search_query':self.request.GET['q']})
             assert q.is_valid()
-            queryset = SearchItems.items.search(q.cleaned_data['search_query'])
+            queryset = SearchItems.items.search(self.request.user.account,
+                                                q.cleaned_data['search_query'])
             return queryset
         
         except:
