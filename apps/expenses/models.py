@@ -75,6 +75,7 @@ class Expense(models.Model):
         except:
             self.account = get_account_by_user(self.owner)
         if not self.can_update():
+            # pass when loading search items from script
             raise ValidationError(message="Account is balanced for this month, can't add or update expenses")        
         
         super(Expense,self).save(*args,**kwargs)
