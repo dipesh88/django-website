@@ -18,9 +18,9 @@ class BalanceAggregateManager(models.Manager):
     
     def _get_recs(self,user,year,approved,month=None):
         
-        
+        divorcee_id = 0 if user.divorcee == None else user.divorcee.id
         args = [user.account.id,year,year,
-                user.id,year,user.divorcee.id]
+                user.id,year,divorcee_id]
         approved_clause={'all':"",'yes':" AND is_approved=1 ",'no': " AND is_approved=0 "}[approved]
        
         if month != None:
