@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.views import generic
 
-from lang import balance as lang_balance
+from ...lang import balance as lang_balance
 
 from .models import MonthlyBalance
 
