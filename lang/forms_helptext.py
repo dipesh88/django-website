@@ -1,0 +1,1 @@
+signup_account_code="If your divorcee already opened an account, please enter this account code"

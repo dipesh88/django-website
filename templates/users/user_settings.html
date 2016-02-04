@@ -2,10 +2,13 @@
 {% load static from staticfiles %}
 
 {% block sidebar_item %} "settings" {% endblock sidebar_item %}
-{% block page_title %} User Settings:{% endblock page_title %} 
+{% block page_title %} User Settings{% endblock page_title %} 
     
 {% block main_content %}
     
-   Username: {{ request.user }}
+  <p>  Username: {{ request.user }} </p>
+   
+  <p>  Account Code: {{ request.user.account.account_code }} </p>
+  
 
 {% endblock main_content %}
