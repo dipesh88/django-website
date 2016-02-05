@@ -53,7 +53,7 @@ class Worker(threading.Thread):
         """ Stop the thread and wait for it to end. """
         self._stopevent.set( )
         self.logger.warn('Worker stop event set')
-        return True
+        return "Stop event set"
     
     def ping(self):
         return "I'm OK"
@@ -83,5 +83,5 @@ class Worker(threading.Thread):
                     
              
         self.worker_queue = None
-        self.logger.warn('Worker stopped, % tasks handled'%self.tasks_counter)
+        self.logger.warn('Worker stopped, %s tasks handled'%self.tasks_counter)
                 
