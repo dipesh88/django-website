@@ -46,7 +46,8 @@ INSTALLED_APPS = (
     'site_repo.apps.accounts',
     'site_repo.apps.balance',
     'site_repo.apps.expenses',
-    'site_repo.apps.search'
+    'site_repo.apps.search',
+    'site_repo.apps.tasks_queue'
 )
 
 MIDDLEWARE_CLASSES = (
