@@ -9,6 +9,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "site_repo.settings")
 os.environ["DJANGO_SETTINGS_MODULE"] = "site_repo.settings"
 import django
 
+from . import app_settings
 from . import helpers
 
 class Worker(threading.Thread):
@@ -34,7 +35,15 @@ class Worker(threading.Thread):
     
     def run_task(task):
         
-        task.run()
+        for i in range(app_settings.MAX_RETRIES):
+            try:
+                task.run()
+                break
+            except:
+                if i < app_settings.MAX_RETRIES - 1:
+                    pass
+                else:
+                    raise
     
     def stop_thread(self, timeout=None):
         """ Stop the thread and wait for it to end. """
