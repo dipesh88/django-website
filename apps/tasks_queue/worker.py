@@ -15,7 +15,7 @@ from . import helpers
 class Worker(threading.Thread):
     def __init__(self,logger_name=None):
         
-        super(Worker,self).__init__(name="django-tasks-queue")
+        threading.Thread.__init__(self, name="django-tasks-queue")
         self._stopevent = threading.Event()
         self.setDaemon(1)
         self.worker_queue = Queue.Queue()

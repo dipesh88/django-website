@@ -1,6 +1,5 @@
 import SocketServer
 import threading
-
 from . import worker_manager
 
 Dcommands = {'ping':worker_manager.ping,
@@ -34,7 +33,7 @@ class TaskSocketServerThread(threading.Thread):
     
     def __init__(self,host,port):
         
-        super(TaskSocketServer,self).__init__(name='tasks-socket-server')
+        threading.Thread.__init__(self, name='tasks-socket-server')
         self.host = host
         self.port = port
         self._stopEvent = threading.Event()
