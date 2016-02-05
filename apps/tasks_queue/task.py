@@ -8,6 +8,7 @@ class Task(object):
         self.task_callable = a_callable
         self.args = args
         self.kwargs = kwargs
+        self.db_id = None
     
     def run(self):
         self.task_callable(*self.args,**self.kwargs)
