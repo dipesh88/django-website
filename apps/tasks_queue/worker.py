@@ -15,7 +15,7 @@ from . import helpers
 class Worker(threading.Thread):
     def __init__(self,logger_name=None):
         
-        threading.Thread.__init__(self, name="django-tasks-queue",**kwds)
+        super(Worker,self).__init__(name="django-tasks-queue")
         self._stopevent = threading.Event()
         self.setDaemon(1)
         self.worker_queue = Queue.Queue()
@@ -27,13 +27,17 @@ class Worker(threading.Thread):
         
         self.start()
         
-    def put_task_on_queue(self,new_task):
+    def put_task_on_queue(self,new_pickled_task):
+        
+        try:
+            new_task = helpers.unpack(pickled_task)
+            self.tasks_counter += 1
+            self.worker_queue.put(new_task)
+            return True,"sent"
+        except Exception as e:
+            return False,"Worker: %s"%e.message
     
-        self.tasks_counter += 1
-        self.worker_queue.put(new_task)
-        return True
-    
-    def run_task(task):
+    def run_task(self,task):
         
         for i in range(app_settings.MAX_RETRIES):
             try:
@@ -50,6 +54,9 @@ class Worker(threading.Thread):
         self._stopevent.set( )
         self.logger.warn('Worker stop event set')
         return True
+    
+    def ping(self):
+        return "I'm OK"
     
     def status_waiting(self):
         return self.worker_queue.qsize()
