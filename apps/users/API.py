@@ -5,6 +5,7 @@ from ...utils.mail import send_mail_to_user
 from ...lang import mail as lang_mail
 
 from ..accounts.models import Account
+from ..tasks_queue.API import push_task_to_queue
 
 def register_user(username,email,password,account_code):
     
@@ -32,7 +33,8 @@ def register_user(username,email,password,account_code):
     account.save()
     user.account = account
     
-    send_mail_to_user(user,**lang_mail.welcome_mail)
+    #send_mail_to_user(user,**lang_mail.welcome_mail)
+    push_task_to_queue(send_mail_to_user,user,**lang_mail.welcome_mail)
     
     return user
     
