@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(REPO_DIR)
 
 # App settings
 YEARS_TO_FILTER_ON_GUI = [2016,2017]
-
+MAX_PAGINATION_ITEMS_PER_PAGE = 10
 
 
 
