@@ -21,7 +21,10 @@ class TaskSocketServer(SocketServer.BaseRequestHandler):
         if data in Dcommands.keys():
             try:
                 worker_response = Dcommands[data]()
-                response = (True,worker_response,)
+                if worker_response == 'Worker Off':
+                    response = (False,worker_response)
+                else:
+                    response = (True,worker_response,)
             except Exception as e:
                 response =  (False,"TaskServer Command: %s"%e.message,)                
         else:        
@@ -44,7 +47,6 @@ class TaskSocketServerThread(threading.Thread):
         threading.Thread.__init__(self, name='tasks-socket-server')
         self.host = host
         self.port = port
-        self._stopEvent = threading.Event()
         self.setDaemon(1)
         self.start()
         
