@@ -1,11 +1,11 @@
 from django.conf import settings
-from django.core.paginator import Paginator
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views import generic
 from django.core.urlresolvers import reverse
 
 import datetime
 
+from ...utils.view_utils import update_pagination_context
 from .models import Expense
 from .forms import ExpenseOwnerForm,ExpenseApproveForm
 
@@ -60,17 +60,8 @@ class MonthlyExpensesAllView(MonthlyExpensesBaseView):
         context['by_url_args'] = 'by={by}'.format(by=self.by)
         
         # pagination
-        if len(self.object_list) > settings.MAX_PAGINATION_ITEMS_PER_PAGE:
-            context['paginate'] = True
-            p = Paginator(self.object_list,settings.MAX_PAGINATION_ITEMS_PER_PAGE)
-            page = p.page(int(self.request.GET.get('page',1)))
-            context['page'] = page
-            context['pages'] = p.page_range
-            context['object_list'] = page.object_list
-            
-        else:
-            context['paginate'] = False
-        
+        update_pagination_context(self.request,context,self.object_list)
+       
         return dict(context,**self.kwargs)
     
 class MonthlyExpensesMyView(MonthlyExpensesBaseView):

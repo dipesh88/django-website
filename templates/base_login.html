@@ -69,7 +69,9 @@
     </div>
     
 <div class="col-xs-10">
-    {% block pagination %}{%endblock pagination %}
+    {% if paginate %}   
+        {% include "elements/pagination.html" %}        
+    {% endif %}           
 </div>
 
 {% endblock body %}
