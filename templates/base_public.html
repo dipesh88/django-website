@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% load static from staticfiles %}
+
+
+{% block additional_refs %}
+<link href="{% static 'lib/css/style.css' %}" rel="stylesheet">
+{% endblock additional_refs %}
 
 {% block ready_script %} {% endblock ready_script %} 
 
