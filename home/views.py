@@ -11,7 +11,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.views import generic
-from apps.auth import forms
+from apps.public.auth import forms
 from lang import forms_public as lang_forms_public
 
 

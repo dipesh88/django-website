@@ -20,8 +20,8 @@ from django.contrib.staticfiles import views
 from django.conf.urls.static import static
 
 from home.views import HomePageView
-from apps.auth import views as auth_views
-from apps.public import views as public_view
+from apps.public.auth import views as auth_views
+from apps.public.info import views as public_info_views
 from apps.search.views import SearchView
 
 urlpatterns = [
@@ -37,7 +37,7 @@ urlpatterns = [
     
     url(r'^search/$',SearchView.as_view(),name='search_view'),
     
-    url(r'^about/$',public_view.AboutPublicView.as_view(),name="public-about")
+    url(r'^about/$',public_info_views.AboutPublicView.as_view(),name="public-about")
 ]
 
 if settings.DEBUG:

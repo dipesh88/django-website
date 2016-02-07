@@ -5,14 +5,14 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
-
-from ...cache.API import clear_user_cache
+from django.middleware import csrf
+from site_repo.cache.API import clear_user_cache
 from . import forms
 
 class SignUpView(generic.edit.FormView):
     
     form_class = forms.SignupForm
-    template_name = 'auth/signup.html'
+    template_name = 'public/auth/signup.html'
     success_url = reverse_lazy("expenses:main_redirect")
     
     
@@ -26,7 +26,7 @@ class SignUpView(generic.edit.FormView):
 class LoginView(generic.edit.FormView):
     
     form_class = AuthenticationForm
-    template_name = 'auth/login.html'
+    template_name = 'public/auth/login.html'
     success_url = reverse_lazy("expenses:main_redirect")
     
     def form_valid(self, form):
@@ -45,7 +45,7 @@ def logout_user(request):
     
     clear_user_cache(request.user)
     logout(request)
-    return HttpResponseRedirect("/login/")
+    return HttpResponseRedirect("/")
     
     
     

@@ -7,6 +7,6 @@ from django.views import generic
 
 class AboutPublicView(generic.TemplateView):
     
-    template_name = "public/about.html"
+    template_name = "public/info/about.html"
     
     
