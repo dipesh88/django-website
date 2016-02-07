@@ -30,6 +30,19 @@ def add_page_arg(url,page_index):
     else:
         url_base = "%s&&page=%s" if "?" in url else "%s?page=%s"
         return url_base%(url,page_index,)
+    
+from django.contrib.messages import constants
+Dmessage = {constants.DEBUG:"bg-info",
+            constants.INFO:"bg-primary",
+            constants.SUCCESS:"bg-success",
+            constants.WARNING:"bg-warning",
+            constants.ERROR:"bg-danger"}
+@register.filter
+def django_to_bootstrap_message_class(value):
+    
+    return Dmessage.get(value,"")
+    
+    
 
    
     

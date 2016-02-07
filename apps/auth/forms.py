@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from ...lang import forms_helptext
-from ..users import API as API_USERS
+from site_repo.lang import forms_public
+from site_repo.apps.users import API as API_USERS
 
 class SignupForm(forms.Form):
     
@@ -10,7 +10,7 @@ class SignupForm(forms.Form):
     password = forms.CharField(max_length=32,widget=forms.PasswordInput)
     email = forms.EmailField()
     account_code = forms.CharField(max_length=36,min_length=36,required=False,
-                                   help_text=forms_helptext.signup_account_code)
+                                   help_text=forms_public.signup_account_code)
     
         
     def save(self):
