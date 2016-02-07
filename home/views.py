@@ -10,7 +10,7 @@ main_logger = logging.getLogger('main')
 def home_page(request):
     
     try:
-        template = 'index.html'
+        template = 'home_page.html'
         
         context = {'page_title':'It Works',
                    'intro':'Hello World!'}    
