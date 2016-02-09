@@ -50,6 +50,13 @@ INSTALLED_APPS = (
     'site_repo.apps.tasks_queue'
 )
 
+
+PUBLIC_VIEWS_MODULES = (
+    'site_repo.home.views',
+    'site_repo.apps.public.auth.views',
+    'site_repo.apps.public.info.views'
+)
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,6 +68,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'site_repo.django_add.middleware.LogExceptions',
+    'site_repo.django_add.middleware.AuthorizedViews',
 )
 
 ROOT_URLCONF = 'site_repo.urls'

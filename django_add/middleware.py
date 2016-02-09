@@ -1,9 +1,22 @@
 import logging
 import sys
-from django.http import Http404
+from django.conf import settings
+from django.http import Http404,HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from ..cache.API import get_user_cache,set_user_cache
 
 from ..apps.accounts.API import get_account_by_user,get_divorcee_by_account
+
+class AuthorizedViews(object):
+    
+    def process_view(self,request,view_func,*arg,**kwargs):
+        
+        if view_func.__module__  in settings.PUBLIC_VIEWS_MODULES:
+            return None
+        
+        if not request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('home_page'))
+
 
 class LogExceptions(object):
     """logs any unhandled views exceptions, ignores Http404"""
