@@ -13,10 +13,11 @@ def send_mail_to_user(user,subject,message,ignore_no_email=True):
             return
         else:
             raise
-        
-    send_mail(subject=subject,
+      
+    push_task_to_queue(send_mail,subject=subject,
           message=message,
           from_email=settings.FROM_EMAIL,
-          recipient_list=[user.email])
+          recipient_list=[user.email])  
+    
           
     return
