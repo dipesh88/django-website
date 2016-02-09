@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^approve/(?P<pk>[0-9]+)/(?P<slug>[-\w]+)/$', views.ApproveExpenseView.as_view(),name='approve'),
     
     # list views
-    # GET arg ?approve=yes/no/all
+    # GET arg ?approve=yes/no/all by=all/my/divorcee
     url(r'^monthly/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', views.MonthlyExpensesAllView.as_view(),name='monthly_all'),
     url(r'^monthly/my/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', views.MonthlyExpensesMyView.as_view(),name='monthly_my'),
     url(r'^monthly/divorcee/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', views.MonthlyExpensesDivorceeView.as_view(),name='monthly_divorcee'),

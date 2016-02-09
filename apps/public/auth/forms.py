@@ -4,6 +4,11 @@ from django.contrib.auth.forms import UserCreationForm
 from site_repo.lang import forms_public
 from site_repo.apps.users import API as API_USERS
 
+class PasswordResetForm(forms.Form):
+    
+    username_or_email = forms.CharField(max_length=None, min_length=None)
+
+
 class SignupForm(forms.Form):
     
     username = forms.CharField(max_length=32)

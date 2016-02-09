@@ -1,13 +1,51 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse,reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
-from django.middleware import csrf
 from site_repo.cache.API import clear_user_cache
 from . import forms
+
+
+from site_repo.lang import forms_public as lang_forms_public
+from . import helpers
+
+
+
+def password_reset_view(request):
+    
+    template_name = 'public/auth/password_reset_form.html'
+    
+    user = None
+    if request.method == "POST":
+        form = forms.PasswordResetForm(request.POST)
+        if form.is_valid():
+            try:
+                user = User.objects.get(username=form.cleaned_data['username_or_email'])
+            except:
+                try:
+                    user = User.objects.filter(email=form.cleaned_data['username_or_email'])[0]
+                except:
+                    pass ## no info if user was found or not
+            
+            if user != None:
+                protocol = "https://%s" if request.is_secure() else "http://%s"
+                helpers.send_reset_password_mail_to_user(user,protocol%request.get_host())
+                
+            messages.add_message(request,messages.SUCCESS,lang_forms_public.reset_password_link_sent)
+            return HttpResponseRedirect(reverse("home_page"))
+    else:
+        # method is GET
+        form = forms.PasswordResetForm()
+        context = {'form':form}
+        return render(request,template_name,context)
+                
+                
+    
+    
 
 class SignUpView(generic.edit.FormView):
     
