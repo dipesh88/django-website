@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
 {% block ready_script %} 
-    {{ block.supe }}
+    {{ block.super }}
+                    var csrftoken = getCookie('csrftoken');
+                    $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                       
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        
+                    }
+                });
     set_sidebar({% block sidebar_item %} "expenses" {% endblock sidebar_item %});
     $(".dropdown-menu > li ").on("click",update_bootstrap_dropdown_button_by_selection);
     $("#searchGo").on("submit",function(){

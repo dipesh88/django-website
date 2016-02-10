@@ -1,16 +1,40 @@
+import datetime
+import json
+
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views import generic
-from django.core.urlresolvers import reverse
-
-import datetime
+from django.views.decorators.http import require_POST
 
 from ...utils.view_utils import update_pagination_context,ModelToHtmlMixin
-from .models import Expense
+
+from .helpers import multiple_approval
 from .forms import ExpenseOwnerForm,ExpenseApproveForm,ExpenseChangeBalanceMonth
+from .models import Expense
+
 
 expense_views_fields = ['desc','place_of_purchase','date_purchased','expense_sum',
                                'expense_divorcee_participate','notes', 'date_entered']
+
+#@require_POST
+def expenses_multiple_approve(request):
+    
+    try:
+        Dapproval  = {}
+        for k,v in request.POST.iteritems():
+            Dapproval[int(k)] = True if v == "true" else False
+        multiple_approval(request.user,Dapproval)
+        return HttpResponse(status=200)
+    
+    except:
+        return HttpResponse(status=500)
+         
+        
+    
+    
+
 
 class MainExpensesRedirectView(generic.RedirectView):
     

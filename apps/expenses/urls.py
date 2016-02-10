@@ -14,6 +14,9 @@ urlpatterns = [
     url(r'^approve/(?P<pk>[0-9]+)/(?P<slug>[-\w]+)/$', views.ApproveExpenseView.as_view(),name='approve'),
     url(r'^change-balanced-month/(?P<pk>[0-9]+)/(?P<slug>[-\w]+)/$',views.ChangeExpenceBalanceMonthView.as_view(),name='change_month_balance'),
     
+    # ajax
+    url(r'^ajax/multi-approve/$', views.expenses_multiple_approve,name='expenses_multi_approve'),
+    
     # list views
     # GET arg ?approve=yes/no/all by=all/my/divorcee
     url(r'^monthly/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', views.MonthlyExpensesAllView.as_view(),name='monthly_all'),

@@ -11,13 +11,61 @@
     {% include "elements/dropdown_select_approved_expenses.html" %}
     {% include "elements/dropdown_select_month_expenses.html" %} 
     {% include "elements/dropdown_select_year_expenses.html" %}
+    <button class="btn btn-primary" id="save_approve_change" style="display:none;"> Save </button>
+    
+    <button class="btn btn-success" id="save_approve_success" style="display:none;"> Saved </button>
 
 {% endblock page_nav %}
+
+
+
+{% block ready_script %} 
+    {{ block.super }}
+    $(":checkbox").on("click",function(){
+            $("#save_approve_change").show();});
+            
+    $("#save_approve_change").on("click",function(){
+        
+            checkboxes = $("#expenses_table").find(":checkbox");
+            response = {};
+            checkboxes.each(function(){
+                  response[$(this).attr("expense_id")] = $(this).checked;         
+            });
+           for (m=0;m<checkboxes.length;++m)
+                        {response[checkboxes[m].getAttribute("expense_id")] = checkboxes[m].checked;}
+                   
+             $.ajax(
+                    {type:"POST",
+                      url: "{% url 'expenses:expenses_multi_approve' %}",
+                      data: response,
+                      global: false,
+                      success: function(){
+                                $("#save_approve_change").hide();
+                                $("#save_approve_success").show();
+                                setTimeout(function(){
+                                             $("#save_approve_success").hide();
+                                                    }, 1000);
+                       
+                        },
+                      error: function (){}
+            });
+    
+            
+    
+    });
+    
+    
+{% endblock ready_script %} 
+
+
+
+
+
 
 {% block main_content %}
     
     
-    <table class="table table-hover">
+    <table class="table table-hover" id="expenses_table">
         <tr>
             
             <th> Description </th>
@@ -38,11 +86,18 @@
                 
                 <td> {{ expense.date_purchased }} </td>
                 <td>
-                    
-                    {% if expense.is_approved %} 
-                        <span  class="glyphicon glyphicon-ok"  aria-hidden="true"></span>
+                  
+                                     
+                    {% if expense.owner != request.user and expense.can_update %}
+                            <input type="checkbox"  expense_id="{{ expense.id }}" {{ expense.is_approved|striftrue:"checked"}} >
                     {% else %}
-                        <span> - </span>
+                    
+                           {% if expense.is_approved %} 
+                               <span  class="glyphicon glyphicon-ok"  aria-hidden="true"></span>
+                           {% else %}
+                               <span> - </span>
+                           {% endif %}
+                        
                     {% endif %}
                 
                 </td>
