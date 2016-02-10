@@ -9,6 +9,9 @@ from ...utils.view_utils import update_pagination_context,ModelToHtmlMixin
 from .models import Expense
 from .forms import ExpenseOwnerForm,ExpenseApproveForm,ExpenseChangeBalanceMonth
 
+expense_views_fields = ['desc','place_of_purchase','date_purchased','expense_sum',
+                               'expense_divorcee_participate','notes', 'date_entered']
+
 class MainExpensesRedirectView(generic.RedirectView):
     
     def get_redirect_url(self,*arg,**kwargs):
@@ -87,8 +90,7 @@ class ChangeExpenceBalanceMonthView(ModelToHtmlMixin,generic.UpdateView):
     form_class = ExpenseChangeBalanceMonth
     
     model_to_html = Expense
-    model_to_html_fields = ['desc','place_of_purchase','date_purchased','expense_sum',
-                               'expense_divorcee_participate','date_entered','notes']        
+    model_to_html_fields = expense_views_fields  
     
     def get_object(self):
         
@@ -120,8 +122,7 @@ class ApproveExpenseView(ModelToHtmlMixin,generic.UpdateView):
     form_class = ExpenseApproveForm
     
     model_to_html = Expense
-    model_to_html_fields = ['desc','place_of_purchase','date_purchased','expense_sum',
-                            'expense_divorcee_participate','date_entered','notes']    
+    model_to_html_fields =expense_views_fields   
     
     
     
@@ -175,8 +176,7 @@ class ExpenseView(ModelToHtmlMixin,generic.DetailView):
     form_class = ExpenseOwnerForm
     
     model_to_html = Expense
-    model_to_html_fields = ['desc','place_of_purchase','date_purchased','expense_sum',
-    'expense_divorcee_participate','date_entered','notes']
+    model_to_html_fields = expense_views_fields
     
     def get_object(self):
                
