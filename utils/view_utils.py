@@ -22,7 +22,8 @@ def update_pagination_context(request,context,object_list):
 class ModelToHtml(object):
     """ html output for fields by verbose name, in the order provided"""
     
-    row_template =  "{row_start} {label} {divider} {value} {row_end} \n"
+    simple_row_template =  "{row_start} {label} {divider} {value} {row_end} \n"
+    styled_row_template = '{row_start}<span class="label label-info p-r-10"> {label} </span> {divider}  <span class="panel panel-default" style="border:none;padding-left:10px;">{value}</span> {row_end} \n'
     obj = None
     
     def __init__(self,model,fields):
@@ -32,12 +33,12 @@ class ModelToHtml(object):
         s = set(model._meta.get_all_field_names())
         assert set(fields).issubset(s)
              
-    def _row(self,field_name,value,row_start,row_end, divider=":"):
+    def _row(self,row_template,field_name,value,row_start,row_end, divider="    "):
         
         label = self.model._meta.get_field(field_name).verbose_name
-        return self.row_template.format(row_start=row_start,label=label,row_end=row_end,divider=divider,value=value)
+        return row_template.format(row_start=row_start,label=label,row_end=row_end,divider=divider,value=value)
         
-    def as_p(self):
+    def _output_html(self,tag,row_template):
         
         html_output = ""
         for field_name in self.Lfields:
@@ -47,9 +48,17 @@ class ModelToHtml(object):
             else:
                 value = str(value)
             
-            html_output = html_output + self._row(field_name,value,"<p>","</p>")
+            html_output = html_output + self._row(row_template,field_name,value,"<%s>"%tag,"</%s>"%tag)
             
         return mark_safe(html_output)
+    
+    def as_p(self):
+        
+        return self._output_html("p",self.simple_row_template)
+    
+    def styled(self):
+        
+        return self._output_html("h4",self.styled_row_template)
     
     
 class ModelToHtmlMixin(object):
