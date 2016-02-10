@@ -31,23 +31,23 @@ class Expense(models.Model):
         item_name_field = 'desc'
         search_fields = ['place_of_purchase','notes']
 
-    date_entered = models.DateTimeField(auto_now_add=True)
+    date_entered = models.DateTimeField(auto_now_add=True, 
+                                        verbose_name="Date entered")
     date_purchased = models.DateField()
-    month_balanced = models.IntegerField(validators=[verify_month_int])
-    year_balanced = models.IntegerField()
+    month_balanced = models.IntegerField(validators=[verify_month_int],verbose_name="Balance on month")
+    year_balanced = models.IntegerField(verbose_name="Balance on year")
 
     owner = models.ForeignKey(User,related_name='expenses')
     account = models.ForeignKey(Account,related_name='expenses',blank=True,null=True)
 
-    expense_sum = models.FloatField()
+    expense_sum = models.FloatField(verbose_name="Cost")
     expense_divorcee_participate = models.IntegerField(validators=[MinValueValidator(0),
-                                                                MaxValueValidator(100)])
+                                                                MaxValueValidator(100)],verbose_name="Divorcee participate %")
                                                                    
-    desc = models.CharField(max_length=512)
+    desc = models.CharField(max_length=512,verbose_name="Description")
     slug = models.SlugField(max_length=128,blank=True)
-    place_of_purchase = models.CharField(max_length=512)
-    notes = models.CharField(max_length=1024,blank=True)
-
+    place_of_purchase = models.CharField(max_length=512,verbose_name="Place of purchase")
+    notes = models.CharField(max_length=1024,blank=True,verbose_name="Notes")
     is_approved = models.BooleanField(default=False)
 
     monthly_expenses = MonthlyExpensesManager()

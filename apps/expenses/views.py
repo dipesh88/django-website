@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 
 import datetime
 
-from ...utils.view_utils import update_pagination_context
+from ...utils.view_utils import update_pagination_context,ModelViewHtmlOutput
 from .models import Expense
 from .forms import ExpenseOwnerForm,ExpenseApproveForm
 
@@ -136,11 +136,25 @@ class ExpenseView(generic.DetailView):
     context_object_name = "expense"
     form_class = ExpenseOwnerForm
     
+    model_html = ModelViewHtmlOutput(Expense,
+                                     fields=[
+                                         'desc','place_of_purchase','date_purchased','expense_sum',
+                                         'expense_divorcee_participate','date_entered','notes'
+                                             ])
+    
     def get_object(self):
                
-        object =  get_object_or_404(Expense,pk=int(self.kwargs['pk']),
+        obj =  get_object_or_404(Expense,pk=int(self.kwargs['pk']),
                                     account=self.request.user.account)
-        return object
+        self.model_html.obj = obj
+        return obj
+    
+    def get_context_data(self,*args,**kwargs):
+        
+        context = super(ExpenseView,self).get_context_data(*args,**kwargs)
+        context['model_html'] = self.model_html
+        
+        return context
     
     
 class AddExpenseView(generic.CreateView):

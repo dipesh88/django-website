@@ -7,17 +7,7 @@
 
 {% block main_content %}
     
-    
-    
-    <p> {{ expense.date_entered }} </p>
-    <p> {{ expense.date_purchased }} </p>
-    <p> {{ expense.month_balanced|intmonth }}, {{ expense.year_balanced }} </p>
-    <p> {{ expense.expense_sum|currencyformat }} </p>
-    <p> {{ expense.expense_divorcee_participate }} </p>
-    <p> {{ expense.desc }} </p>
-    <p> {{ expense.place_of_purchase }} </p>
-    <p> {{ expense.notes }} </p>
-    <p> {{ expense.is_approved }} </p>
+    {{ model_html.as_p }}
 
     {% if expense.can_update %}
     

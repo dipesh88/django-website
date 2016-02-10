@@ -1,5 +1,7 @@
+import datetime
 from django.core.paginator import Paginator
 from django.conf import settings
+from django.utils.safestring import mark_safe
 
 def update_pagination_context(request,context,object_list):
     
@@ -12,3 +14,50 @@ def update_pagination_context(request,context,object_list):
         context['object_list'] = page.object_list
     
     return
+
+
+
+
+class ModelViewHtmlOutput(object):
+    """ html output for fields by verbose name, in the order provided"""
+    
+    row_template =  "{row_start} {label} {divider} {value} {row_end} \n"
+    obj = None
+    
+    def __init__(self,model,fields):
+        
+        self.model = model
+        self.Lfields = fields
+        s = set(model._meta.get_all_field_names())
+        assert set(fields).issubset(s)
+             
+    def _row(self,field_name,value,row_start,row_end, divider=":"):
+        
+        label = self.model._meta.get_field(field_name).verbose_name
+        return self.row_template.format(row_start=row_start,label=label,row_end=row_end,divider=divider,value=value)
+        
+    def as_p(self):
+        
+        html_output = ""
+        for field_name in self.Lfields:
+            value = getattr(self.obj,field_name)
+            if isinstance(value,datetime.datetime):
+                value = value.strftime("%Y-%m-%d %M:%S")
+            else:
+                value = str(value)
+            
+            html_output = html_output + self._row(field_name,value,"<p>","</p>")
+            
+        return mark_safe(html_output)
+            
+            
+            
+        
+        
+            
+        
+        
+        
+        
+        
+        
