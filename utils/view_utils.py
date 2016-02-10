@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.conf import settings
 from django.utils.safestring import mark_safe
 
+
 def update_pagination_context(request,context,object_list):
     
     if len(object_list) > settings.MAX_PAGINATION_ITEMS_PER_PAGE:
@@ -18,7 +19,7 @@ def update_pagination_context(request,context,object_list):
 
 
 
-class ModelViewHtmlOutput(object):
+class ModelToHtml(object):
     """ html output for fields by verbose name, in the order provided"""
     
     row_template =  "{row_start} {label} {divider} {value} {row_end} \n"
@@ -49,6 +50,24 @@ class ModelViewHtmlOutput(object):
             html_output = html_output + self._row(field_name,value,"<p>","</p>")
             
         return mark_safe(html_output)
+    
+    
+class ModelToHtmlMixin(object):
+    
+    model_to_html_fields = None
+    model_to_html = None
+    
+    def __init__(self,*args,**kwargs):
+        
+        self.model_html = ModelToHtml(self.model_to_html, self.model_to_html_fields)
+    
+    def get_context_data(self,*args,**kwargs):
+        
+        context = super(ModelToHtmlMixin,self).get_context_data(*args,**kwargs)
+        self.model_html.obj = self.object
+        context ['model_html'] = self.model_html
+        return context
+        
             
             
             

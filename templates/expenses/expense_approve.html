@@ -8,15 +8,7 @@
 {% block main_content %}
     
    
-    <p> {{ expense.date_entered }} </p>
-    <p> {{ expense.date_purchased }} </p>
-    <p> {{ expense.year_balanced }} </p>
-    <p> {{ expense.month_balanced }} </p>
-    <p> {{ expense.expense_sum|currencyformat }} </p>
-    <p> {{ expense.expense_divorcee_participate|currencyformat }} </p>
-    <p> {{ expense.desc }} </p>
-    <p> {{ expense.place_of_purchase }} </p>
-    <p> {{ expense.notes }} </p>
+    {{ model_html.as_p }}
     
     <form action='' method="POST">
         {% csrf_token %}

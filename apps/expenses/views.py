@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 
 import datetime
 
-from ...utils.view_utils import update_pagination_context,ModelViewHtmlOutput
+from ...utils.view_utils import update_pagination_context,ModelToHtmlMixin
 from .models import Expense
 from .forms import ExpenseOwnerForm,ExpenseApproveForm,ExpenseChangeBalanceMonth
 
@@ -79,12 +79,16 @@ class MonthlyExpensesDivorceeView(MonthlyExpensesBaseView):
         return queryset.filter(owner=self.request.user.divorcee)
     
     
-class ChangeExpenceBalanceMonthView(generic.UpdateView):
+class ChangeExpenceBalanceMonthView(ModelToHtmlMixin,generic.UpdateView):
     
     template_name = "expenses/expense_change_balance_month.html"
     model = Expense
     context_object_name = 'expense'
     form_class = ExpenseChangeBalanceMonth
+    
+    model_to_html = Expense
+    model_to_html_fields = ['desc','place_of_purchase','date_purchased','expense_sum',
+                               'expense_divorcee_participate','date_entered','notes']        
     
     def get_object(self):
         
@@ -108,12 +112,18 @@ class ChangeExpenceBalanceMonthView(generic.UpdateView):
             return redirect(reverse(self.object.get_absolute_url()))
 
 
-class ApproveExpenseView(generic.UpdateView):
+class ApproveExpenseView(ModelToHtmlMixin,generic.UpdateView):
     
     template_name = "expenses/expense_approve.html"
     model = Expense
     context_object_name = "expense"
     form_class = ExpenseApproveForm
+    
+    model_to_html = Expense
+    model_to_html_fields = ['desc','place_of_purchase','date_purchased','expense_sum',
+                            'expense_divorcee_participate','date_entered','notes']    
+    
+    
     
     def get_object(self):
         
@@ -158,31 +168,21 @@ class EditExpenseView(generic.UpdateView):
             return redirect(self.object.get_absolute_url())        
         
     
-class ExpenseView(generic.DetailView):
+class ExpenseView(ModelToHtmlMixin,generic.DetailView):
     
     template_name = "expenses/expense_details.html"
     context_object_name = "expense"
     form_class = ExpenseOwnerForm
     
-    model_html = ModelViewHtmlOutput(Expense,
-                                     fields=[
-                                         'desc','place_of_purchase','date_purchased','expense_sum',
-                                         'expense_divorcee_participate','date_entered','notes'
-                                             ])
+    model_to_html = Expense
+    model_to_html_fields = ['desc','place_of_purchase','date_purchased','expense_sum',
+    'expense_divorcee_participate','date_entered','notes']
     
     def get_object(self):
                
         obj =  get_object_or_404(Expense,pk=int(self.kwargs['pk']),
                                     account=self.request.user.account)
-        self.model_html.obj = obj
         return obj
-    
-    def get_context_data(self,*args,**kwargs):
-        
-        context = super(ExpenseView,self).get_context_data(*args,**kwargs)
-        context['model_html'] = self.model_html
-        
-        return context
     
     
 class AddExpenseView(generic.CreateView):
