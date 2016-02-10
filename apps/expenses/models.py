@@ -53,7 +53,7 @@ class Expense(models.Model):
     slug = models.SlugField(max_length=128,blank=True)
     place_of_purchase = models.CharField(max_length=512,verbose_name="Place of purchase")
     notes = models.CharField(max_length=1024,blank=True,verbose_name="Notes")
-    is_approved = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=False,verbose_name="Approved?")
 
     monthly_expenses = MonthlyExpensesManager()
     objects = Objects() # not avialable w/o explicit assignment when other manager assigned

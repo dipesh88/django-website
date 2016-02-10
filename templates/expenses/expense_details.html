@@ -8,7 +8,9 @@
 {% block main_content %}
     
     {{ model_html.as_p }}
+     <p> Approval Status: {% if expense.is_approved %} Approved {% else %}  Pending {% endif %}  </p>
     <p> Month to Balance: {{ expense.month_balanced|intmonth }}, {{ expense.year_balanced }} </p>
+   
 
     {% if expense.can_update %}
     

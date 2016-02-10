@@ -8,6 +8,7 @@
 {% block main_content %}
     
    {{ model_html.as_p }}
+   <p> Approval Status: {% if expense.is_approved %} Approved {% else %}  Pending {% endif %}  </p>
     
     
     <form action='' method="POST">
