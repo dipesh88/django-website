@@ -22,7 +22,13 @@ class ExpenseApproveForm(forms.ModelForm):
     
     class Meta:
         model = Expense
-        fields = ['is_approved']    
+        fields = ['is_approved']
+        
+class ExpenseChangeBalanceMonth(forms.ModelForm):
+    
+    class Meta:
+        model = Expense
+        fields = ['month_balanced','year_balanced']
         
         
     

@@ -11,19 +11,29 @@
 
     {% if expense.can_update %}
     
-        {% if expense.owner == request.user %}
-            {% if expense.is_approved %}                                
-                <p> Expense approved, no edits </p>                                               
-            {% else %}                                
-                <a href="{{ expense.get_edit_url }}"> Edit Expense </a>                                
-            {% endif %}
-
-        {% else %}
-            <a href="{{  expense.get_approve_url }}"> Approve/Disapprove Expense </a>
-        {% endif %}
+                {% if expense.owner == request.user %}
+                    {% if expense.is_approved %}                                
+                        <p> Expense approved, no edits </p>                                               
+                    {% else %}                                
+                        <a href="{{ expense.get_edit_url }}"> Edit Expense </a>                                
+                    {% endif %}
+        
+                {% else %}
+                    <a href="{{  expense.get_approve_url }}"> Approve/Disapprove Expense </a>
+                {% endif %}
 
     {% else %}
-        <p> Expense locked, month balance </p>
+              {% if expense.is_approved %}
+                     <p> Expense locked, month balance </p>
+              {% else %}
+                       {% if expense.owner == request.user %}
+                                <p> The balanced month is already signed as "balance" without this expense. 
+                                <a href="{{ expense.get_change_month_balance_url }}"> You can move it to another unblanced month </a> </p>
+                        {% else %}
+                             <p> The balanced month is already signed as "balance" without this expense. </p>
+                        {% endif %}
+                        
+                {% endif %}   
     {% endif %}
 
 

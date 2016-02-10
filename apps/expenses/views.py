@@ -7,7 +7,7 @@ import datetime
 
 from ...utils.view_utils import update_pagination_context,ModelViewHtmlOutput
 from .models import Expense
-from .forms import ExpenseOwnerForm,ExpenseApproveForm
+from .forms import ExpenseOwnerForm,ExpenseApproveForm,ExpenseChangeBalanceMonth
 
 class MainExpensesRedirectView(generic.RedirectView):
     
@@ -79,6 +79,33 @@ class MonthlyExpensesDivorceeView(MonthlyExpensesBaseView):
         return queryset.filter(owner=self.request.user.divorcee)
     
     
+class ChangeExpenceBalanceMonthView(generic.UpdateView):
+    
+    template_name = "expenses/expense_change_balance_month.html"
+    model = Expense
+    context_object_name = 'expense'
+    form_class = ExpenseChangeBalanceMonth
+    
+    def get_object(self):
+        
+        if hasattr(self,"object"):
+            return self.object
+        
+        object = get_object_or_404(Expense,pk=int(self.kwargs['pk']),
+                                   account=self.request.user.account)
+        
+        return object
+    
+    def get(self,request,*args,**kwargs):
+    
+        self.object = self.get_object()
+    
+        if self.object.owner == request.user and not self.object.is_approved:
+            # this form is userd only to change balance month for non approved expenses
+            # to move the expense to another month, where it could be balanced w/o re-entry
+            return super(ChangeExpenceBalanceMonthView,self).get(request,*args,**kwargs) 
+        else:
+            return redirect(reverse(self.object.get_absolute_url()))
 
 
 class ApproveExpenseView(generic.UpdateView):
@@ -96,6 +123,7 @@ class ApproveExpenseView(generic.UpdateView):
         object =  get_object_or_404(Expense,pk=int(self.kwargs['pk']),
                                     account=self.request.user.account)
         return object
+    
     
     def get(self, request, *args, **kwargs):
         

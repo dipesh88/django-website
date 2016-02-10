@@ -64,9 +64,12 @@ class Expense(models.Model):
         
     def get_approve_url(self):
             
-            return reverse('expenses:approve',args=[str(self.pk),self.slug])    
+            return reverse('expenses:approve',args=[str(self.pk),self.slug])
         
+    def get_change_month_balance_url(self):
         
+        return reverse('expenses:change_month_balance',args=[str(self.pk),self.slug])
+
     def save(self,*args,**kwargs):
 
         self.slug = slugify(self.desc)

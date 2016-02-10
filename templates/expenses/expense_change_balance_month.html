@@ -1,0 +1,19 @@
+{% extends "base_login.html" %}
+{% load static from staticfiles %}
+{% load global_tags %}
+
+{% block sidebar_item %} "expenses" {% endblock sidebar_item %}
+{% block page_title %} Approve Expense:{% endblock page_title %} 
+
+{% block main_content %}
+    
+   
+    
+    
+    <form action='' method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input type="submit" value="Save"> </form>
+    <a href="{{ expense.get_absolute_url }}"> Cancel </a>
+
+{% endblock main_content %}
