@@ -86,6 +86,9 @@ class MonthlyExpensesAllView(MonthlyExpensesBaseView):
         context['approved_url_args'] = 'approved={approved}'.format(approved=self.approved)
         context['by_url_args'] = 'by={by}'.format(by=self.by)
         
+        context['locked_expenses'] = self.request.user.account.locked_expenses(month=self.kwargs['month'],
+                                                                               year=self.kwargs['year'])
+        
         # pagination
         update_pagination_context(self.request,context,self.object_list)
        

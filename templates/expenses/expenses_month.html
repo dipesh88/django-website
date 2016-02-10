@@ -88,7 +88,7 @@
                 <td>
                   
                                      
-                    {% if expense.owner != request.user and expense.can_update %}
+                    {% if expense.owner != request.user and not locked_expenses %}
                             <input type="checkbox"  expense_id="{{ expense.id }}" {{ expense.is_approved|striftrue:"checked"}} >
                     {% else %}
                     
