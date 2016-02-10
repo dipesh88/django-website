@@ -43,7 +43,7 @@ class ModelToHtml(object):
         for field_name in self.Lfields:
             value = getattr(self.obj,field_name)
             if isinstance(value,datetime.datetime):
-                value = value.strftime("%Y-%m-%d %M:%S")
+                value = value.strftime("%Y-%m-%d %H:%M")
             else:
                 value = str(value)
             
