@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator,MaxValueValidator
@@ -12,6 +13,10 @@ from site_repo.django_add.validators import verify_month_int
 
 from ..accounts.models import Account
 from ..accounts.API import get_account_by_user
+
+Lmonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+MONTHS_CHOICES = zip(range(1,13),Lmonths)
+YEARS_CHOICES = zip(settings.YEARS_TO_FILTER_ON_GUI,settings.YEARS_TO_FILTER_ON_GUI,)
 
 class MonthlyExpensesManager(models.Manager):
     
@@ -32,10 +37,10 @@ class Expense(models.Model):
         search_fields = ['place_of_purchase','notes']
 
     date_entered = models.DateTimeField(auto_now_add=True, 
-                                        verbose_name="Date entered")
-    date_purchased = models.DateField()
-    month_balanced = models.IntegerField(validators=[verify_month_int],verbose_name="Balance on month")
-    year_balanced = models.IntegerField(verbose_name="Balance on year")
+                                        verbose_name="Entered On")
+    date_purchased = models.DateField(verbose_name="Date of Purchase")
+    month_balanced = models.IntegerField(validators=[verify_month_int],verbose_name="Balance on month",choices=MONTHS_CHOICES)
+    year_balanced = models.IntegerField(verbose_name="Balance on year",choices=YEARS_CHOICES)
 
     owner = models.ForeignKey(User,related_name='expenses')
     account = models.ForeignKey(Account,related_name='expenses',blank=True,null=True)

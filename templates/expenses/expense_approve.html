@@ -3,12 +3,14 @@
 {% load global_tags %}
 
 {% block sidebar_item %} "expenses" {% endblock sidebar_item %}
-{% block page_title %} Approve Expense:{% endblock page_title %} 
+{% block page_title %} Approve Expense{% endblock page_title %} 
 
 {% block main_content %}
     
    
     {{ model_html.as_p }}
+    <p> Month to Balance: {{ expense.month_balanced|intmonth }}, {{ expense.year_balanced }} </p>
+    
     
     <form action='' method="POST">
         {% csrf_token %}
