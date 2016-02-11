@@ -10,18 +10,56 @@
 {% endblock page_nav %}
 
 {% block main_content %}
+<div class="col-xs-6">
+<h4> {{ balance.month_of_balance|intmonth }},{{ balance.year_of_balance }} </h4>
+
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>My Expenses</td>
+            <td>{{  balance.user_sum|currencyformat }} <td>
+        </tr>
         
-    <p> {{ balance.month_of_balance|intmonth }},{{ balance.year_of_balance }} </p>
-    <p>{{  balance.user_sum|currencyformat }} <p>
-    <p>{{  balance.divorcee_participate|currencyformat }} <p>
-    <p>{{  balance.divorcee_sum|currencyformat }} <p>
-    <p>{{  balance.user_participate|currencyformat }} <p>
-    <p>{{  balance.user_net|currencyformat }} <p>
-    <p>{{  balance.divorcee_net|currencyformat }} <p>
-    <p> {{ balance.me_cleared }} </p>
-    <p>  {{ balance.divorcee_cleared}} </p>
+        </tr>
+            <td>Divorcee Participate</td>
+            <td>{{  balance.divorcee_participate|currencyformat }} <td>
+        </tr>
+        
+        <tr> 
+            <td>Divorcee Expenses</td>
+            <td>{{  balance.divorcee_sum|currencyformat }} <td>
+         </tr>
+         
+         <tr>
+            <td>My Participate</td>
+            <td>{{  balance.user_participate|currencyformat }} <td>
+         </tr>
+            
+        <tr style="font-weight:bold;" class="info">
+            <td>My Net Costs</td>
+            <td>{{  balance.user_net|currencyformat }} <td>
+        </tr>
+           
+          <tr>
+                <td>Divorcee Net Costs</td> 
+                 <td>{{  balance.divorcee_net|currencyformat }} <td>
+          </tr>
+          
+          </tbody>
     
+    </table>
     
+          
+          
+            
+            
+            
+            
+ <h4> <span class="label label-info p-r-10"> Balance Status </span></h4>           
+           
+            <h4> {{ balance.me_cleared }} </h4>
+            <h4>  {{ balance.divorcee_cleared}} </h4>
     
+</div>    
 
 {% endblock main_content %}
