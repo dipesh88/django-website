@@ -60,3 +60,12 @@ function getCookie(name) {
     return cookieValue;
 }
 
+
+function style_elements(){
+
+    $("select").addClass("form-control");
+    
+
+
+}
+

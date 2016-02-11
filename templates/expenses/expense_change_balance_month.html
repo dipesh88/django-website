@@ -7,14 +7,20 @@
 
 {% block main_content %}
     
-   {{ model_html.as_p }}
-   <p> Approval Status: {% if expense.is_approved %} Approved {% else %}  Pending {% endif %}  </p>
+   {{ model_html.styled }}
+   <h4> <span class="label label-info p-r-10"> Approval Status: </span>
+   <span class="panel panel-default" style="border:none;padding-left:10px;">
+      {% if expense.is_approved %} Approved {% else %}  Pending {% endif %} 
+   </span>
+   
+   </h4>
     
     
-    <form action='' method="POST">
+    <form action='' method="POST" class="col-xs-2">
         {% csrf_token %}
         {{ form.as_p }}
-    <input type="submit" value="Save"> </form>
-    <a href="{{ expense.get_absolute_url }}"> Cancel </a>
+        <a href="{{ expense.get_absolute_url }}" class="btn btn-danger" role="button"> Cancel </a>
+    <input type="submit" value="Save" class="btn btn-success"> </form>
+    
 
 {% endblock main_content %}
