@@ -21,5 +21,7 @@ GROUP BY month_balanced) table_b
 ON table_all.month_balanced = table_b.month_balanced
 """
 
+sort_clause = "ORDER BY table_all.month_balanced"
+
 # args: account_id,year,year,divorcee1_id,year,divorcee2_id,month
 of_month = of_year + "WHERE table_all.month_balanced=%s"

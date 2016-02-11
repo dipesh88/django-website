@@ -19,7 +19,7 @@ def last_day_of_prev_month(from_day=None):
 
 def last_day_of_month(year,month):
     
-    days_in_month =  calendar.monthrange(year,month)[0]
+    days_in_month =  calendar.monthrange(year,month)[1]
     
     return datetime.datetime(year,month,days_in_month)
     

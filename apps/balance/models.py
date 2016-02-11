@@ -11,7 +11,7 @@ from ..expenses.models import Expense
 
 from site_repo.django_add.validators import verify_month_int
 from ...utils.db import run_sql
-from .sql import of_year,of_month
+from .sql import of_year,of_month, sort_clause
 
 
 class BalanceAggregateManager(models.Manager):
@@ -27,7 +27,7 @@ class BalanceAggregateManager(models.Manager):
             sql = of_month
             args.append(month)
         else:
-            sql = of_year
+            sql = of_year + sort_clause
         recs = run_sql(sql.format(approved_clause=approved_clause),*args)
         Lresults = []
         for rec in recs:
