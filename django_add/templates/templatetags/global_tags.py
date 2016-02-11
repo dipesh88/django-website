@@ -14,6 +14,10 @@ def intmonth(value):
     
 @register.filter
 def currencyformat(value):
+    try:
+        float(value)
+    except:
+        value = 0
     return '{:0,}'.format(int(round(value)))
 
 
