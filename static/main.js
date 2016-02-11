@@ -64,6 +64,8 @@ function getCookie(name) {
 function style_elements(){
 
     $("select").addClass("form-control");
+     $(":text").addClass("form-control");
+     $(":input[type='number']").addClass("form-control");
     
 
 
