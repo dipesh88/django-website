@@ -2,14 +2,17 @@
 {% load static from staticfiles %}
 
 {% block sidebar_item %} "expenses" {% endblock sidebar_item %}
-{% block page_title %} Add Expense:{% endblock page_title %} 
+{% block page_title %} Add Expense{% endblock page_title %} 
     
 {% block main_content %}
     
     
-    <form action='' method="POST">
+    <form action='' method="POST" class="col-xs-5">
         {% csrf_token %}
         {{ form.as_p }}
-    <input type="submit" value="Save"> </form>
+    <a href="{% url "expenses:main_redirect" %}" class="btn btn-danger" role="button"> Cancel </a>
+    <input type="submit" value="Save" class="btn btn-success"> 
+    
+    </form>
 
 {% endblock main_content %}
