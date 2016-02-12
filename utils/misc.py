@@ -1,10 +1,8 @@
 import calendar
 import datetime
 
-def last_day_of_prev_month(from_day=None):
+def last_day_of_prev_month(from_day):
     
-    if from_day == None:
-        from_day = datetime.datetime.today()
     month = from_day.month
     if month == 1:
         prev_month = 12

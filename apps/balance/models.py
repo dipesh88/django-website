@@ -9,7 +9,7 @@ from django.dispatch import receiver
 from ..accounts.models import Account
 from ..expenses.models import Expense
 
-from site_repo.django_add.validators import verify_month_int
+from site_repo.django_add.validators import verify_month_int,verify_month_is_before_this_month
 from ...utils.db import run_sql
 from .sql import of_year,of_month, sort_clause
 
@@ -90,6 +90,17 @@ class MonthlyBalance(models.Model):
     balance_aggregate = BalanceAggregateManager()
     objects = Objects() # not avialable w/o explicit assignment when other manager assigned
     
+    def save(self,*args,**kwargs):
+        
+        if kwargs.get('force_insert',False):
+            # can not balance an account for a month before the month finishes
+            verify_month_is_before_this_month(self.year_of_balance,self.month_of_balance)
+        
+        return super(MonthlyBalance,self).save(*args,**kwargs)
+        
+        
+    
+    
     def get_absolute_url(self):
         
         return reverse("balance:details",kwargs={'year':self.year_of_balance,
@@ -120,4 +131,4 @@ def first_expense_for_month(*args,**kwargs):
         m = MonthlyBalance.objects.get(**Dcriteria)
     except ObjectDoesNotExist:        
         m = MonthlyBalance(**Dcriteria)
-        m.save()
+        m.save(force_insert=True)

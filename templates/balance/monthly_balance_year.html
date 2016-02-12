@@ -33,7 +33,7 @@
             <tr>
             
                 <td>
-                    <a href="{{ balance.balance_object.get_absolute_url }}"> {{  balance.month_of_balance|intmonth }} </a>
+                    <a href="{{ balance.balance_object.get_absolute_url }}?approved=yes"> {{  balance.month_of_balance|intmonth }} </a>
                 </td>
                 <td>
                 {% if balance.user_sum > 0 %}
