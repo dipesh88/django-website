@@ -92,7 +92,7 @@ class MonthlyBalance(models.Model):
     
     def save(self,*args,**kwargs):
         
-        if kwargs.get('force_insert',False):
+        if not kwargs.get('force_insert',False):
             # can not balance an account for a month before the month finishes
             verify_month_is_before_this_month(self.year_of_balance,self.month_of_balance)
         
@@ -122,6 +122,9 @@ class MonthlyBalance(models.Model):
     
 @receiver(post_save,sender=Expense)
 def first_expense_for_month(*args,**kwargs):
+    
+    if not kwargs['created']:
+        return
     
     expense = kwargs['instance']
     Dcriteria = {'month_of_balance':expense.month_balanced,

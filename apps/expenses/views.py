@@ -220,7 +220,6 @@ class AddExpenseView(generic.CreateView):
     model = Expense
     form_class = ExpenseOwnerForm
     template_name = "expenses/expense_add.html"
-    success_url = "/"
     
     n = datetime.datetime.now()
     initial = {'date_purchased':n,
