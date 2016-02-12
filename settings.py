@@ -47,7 +47,8 @@ INSTALLED_APPS = (
     'site_repo.apps.balance',
     'site_repo.apps.expenses',
     'site_repo.apps.search',
-    'site_repo.apps.tasks_queue'
+    'site_repo.apps.tasks_queue',
+     'site_repo.apps.users'
 )
 
 
