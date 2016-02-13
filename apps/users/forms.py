@@ -44,6 +44,10 @@ class UserSettingsForm(forms.Form):
         
         return password_change
             
+            
+class PasswordForm(forms.Form):
+    
+    password = forms.CharField(max_length=36)
         
         
         

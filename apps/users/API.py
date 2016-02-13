@@ -1,6 +1,9 @@
+import datetime
+import pickle
 from django.contrib.auth import authenticate
 from django.contrib.auth.models  import User
 from django.core.exceptions import ValidationError
+from django.conf import settings
 from ...utils.mail import send_mail_to_user
 from ...lang import mail as lang_mail
 
@@ -36,5 +39,19 @@ def register_user(username,email,password,account_code):
     send_mail_to_user(user,**lang_mail.welcome_mail)
     
     return user
+    
+def require_auth_to_user_settings(request):
+    
+    assert request.user.is_authenticated()
+    
+    last_authenticated = request.session.get('last_authenticated',None)
+    if last_authenticated == None:
+        return True
+    
+    n = datetime.datetime.now()
+    last_authenticated = pickle.loads(last_authenticated)
+    delta = n - last_authenticated
+    return delta.seconds > settings.AUTH_SECONDS_TO_ACCESS_USER_SETTINGS
+    
     
    
