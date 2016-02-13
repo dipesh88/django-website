@@ -7,6 +7,7 @@ from django.conf import settings
 from ...utils.mail import send_mail_to_user
 from ...lang import mail as lang_mail
 
+from ...cache.API import clear_user_cache
 from ..accounts.models import Account
 from ..tasks_queue.API import push_task_to_queue
 
@@ -29,6 +30,7 @@ def register_user(username,email,password,account_code):
         assert account.divorcee2 == None
         account.divorcee2 = user
         user.divorcee = account.divorcee1
+        clear_user_cache(account.divorcee1) ## next request will see divorcee2
     else:
         account = Account(divorcee1=user)
         user.divorcee = None
