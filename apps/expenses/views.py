@@ -224,11 +224,15 @@ class AddExpenseView(generic.CreateView):
     n = datetime.datetime.now()
     initial = {'date_purchased':n,
                'month_balanced':n.month,
-               'year_balanced':n.year,
-               'expense_divorcee_participate':50
+               'year_balanced':n.year
                }    
     
-    
+    def get_initial(self,*args,**kwargs):
+        
+        self.initial['expense_divorcee_participate'] = self.request.user.settings.base_divorcee_participate
+        return super(AddExpenseView,self).get_initial(*args,**kwargs)
+        
+        
     def form_valid(self, form):
         
         self.object = form.save(commit=False)
