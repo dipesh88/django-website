@@ -13,7 +13,9 @@ def send_mail_to_user(user,subject,message,ignore_no_email=True):
             return
         else:
             raise
-      
+     
+    if settings.DEBUG and not settings.DEBUG_SEND_EMAIL:
+        return 
     push_task_to_queue(send_mail,subject=subject,
           message=message,
           from_email=settings.FROM_EMAIL,

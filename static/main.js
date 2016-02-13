@@ -66,6 +66,8 @@ function style_elements(){
     $("select").addClass("form-control");
      $(":text").addClass("form-control");
      $(":input[type='number']").addClass("form-control");
+     $(":input[type='email']").addClass("form-control");
+     $(":input[type='password']").addClass("form-control");
     
 
 

@@ -29,6 +29,7 @@ SECRET_KEY = 'p#!smq)7&xp7o71s-l-8mld!j)+l6vep&*9a)6w3wuq%0d)#f2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+DEBUG_SEND_EMAIL = True
 
 # Change this in settings_production
 ALLOWED_HOSTS = ['127.0.0.1','localhost']
