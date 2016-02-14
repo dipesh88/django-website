@@ -23,6 +23,9 @@ class ExpenseApproveForm(forms.ModelForm):
     class Meta:
         model = Expense
         fields = ['is_approved']
+        labels = {"is_approved":"I approve this expense"}
+        widgets = {"is_approved":forms.CheckboxInput(attrs={'class':'pull-left','style':'margin-right:10px;'})}
+        
         
 class ExpenseChangeBalanceMonth(forms.ModelForm):
     

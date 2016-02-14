@@ -68,7 +68,8 @@ class ModelToHtmlMixin(object):
     
     def __init__(self,*args,**kwargs):
         
-        self.model_html = ModelToHtml(self.model_to_html, self.model_to_html_fields)
+        model = self.model_to_html if self.model_to_html != None else self.model
+        self.model_html = ModelToHtml(model, self.model_to_html_fields)
     
     def get_context_data(self,*args,**kwargs):
         

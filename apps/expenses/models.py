@@ -42,7 +42,7 @@ class Expense(models.Model):
     month_balanced = models.IntegerField(validators=[verify_month_int],verbose_name="Balance on month",choices=MONTHS_CHOICES)
     year_balanced = models.IntegerField(verbose_name="Balance on year",choices=YEARS_CHOICES)
 
-    owner = models.ForeignKey(User,related_name='expenses')
+    owner = models.ForeignKey(User,related_name='expenses',verbose_name="Purchased by")
     account = models.ForeignKey(Account,related_name='expenses',blank=True,null=True)
 
     expense_sum = models.FloatField(verbose_name="Cost")
@@ -67,6 +67,10 @@ class Expense(models.Model):
             
             return reverse('expenses:edit',args=[str(self.pk),self.slug])
         
+    def get_delete_url(self):
+                
+                return reverse('expenses:delete',args=[str(self.pk),self.slug])    
+        
     def get_approve_url(self):
             
             return reverse('expenses:approve',args=[str(self.pk),self.slug])
@@ -87,6 +91,17 @@ class Expense(models.Model):
             raise ValidationError(message="Account is balanced for this month, can't add or update expenses")        
         
         super(Expense,self).save(*args,**kwargs)
+        
+    def delete(self,*args,**kwargs):
+        
+        if not self.can_update():
+            return ValidationError(message="Try to delete locked expense")
+        
+        if kwargs['user'] != self.owner:
+            return ValidationError(message="Not allowed to delete this expense")
+        
+        return super(Expense,self).delete()
+            
         
     def can_update(self):
         

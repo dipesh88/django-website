@@ -2,7 +2,7 @@ import datetime
 import json
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse,reverse_lazy
 from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views import generic
@@ -15,7 +15,7 @@ from .forms import ExpenseOwnerForm,ExpenseApproveForm,ExpenseChangeBalanceMonth
 from .models import Expense
 
 
-expense_views_fields = ['desc','place_of_purchase','date_purchased','expense_sum',
+expense_views_fields = ['desc','place_of_purchase','owner','date_purchased','expense_sum',
                                'expense_divorcee_participate','notes', 'date_entered']
 
 #@require_POST
@@ -116,11 +116,10 @@ class ChangeExpenceBalanceMonthView(ModelToHtmlMixin,generic.UpdateView):
     
     template_name = "expenses/expense_change_balance_month.html"
     model = Expense
+    model_to_html_fields = expense_views_fields
     context_object_name = 'expense'
     form_class = ExpenseChangeBalanceMonth
-    
-    model_to_html = Expense
-    model_to_html_fields = expense_views_fields  
+      
     
     def get_object(self):
         
@@ -148,13 +147,10 @@ class ApproveExpenseView(ModelToHtmlMixin,generic.UpdateView):
     
     template_name = "expenses/expense_approve.html"
     model = Expense
+    model_to_html_fields = expense_views_fields
     context_object_name = "expense"
     form_class = ExpenseApproveForm
-    
-    model_to_html = Expense
-    model_to_html_fields =expense_views_fields   
-    
-    
+       
     
     def get_object(self):
         
@@ -165,6 +161,11 @@ class ApproveExpenseView(ModelToHtmlMixin,generic.UpdateView):
                                     account=self.request.user.account)
         return object
     
+    def get_form_kwargs(self,*args,**kwargs):
+    
+        kwargs = super(ApproveExpenseView,self).get_form_kwargs(*args,**kwargs)
+        kwargs['label_suffix'] = ""
+        return kwargs    
     
     def get(self, request, *args, **kwargs):
         
@@ -214,6 +215,27 @@ class ExpenseView(ModelToHtmlMixin,generic.DetailView):
                                     account=self.request.user.account)
         return obj
     
+class DeleteExpenseView(ModelToHtmlMixin,generic.DeleteView):
+    
+    model = Expense
+    model_to_html_fields = expense_views_fields
+    template_name = "expenses/expense_delete.html"
+    success_url = reverse_lazy("expenses:main_redirect")
+    
+    def get_object(self,*args,**kwargs):
+                   
+            obj =  get_object_or_404(Expense,pk=int(self.kwargs['pk']),
+                                        owner=self.request.user)
+            return obj
+        
+    def delete(self, request,*args,**kwargs):
+        
+        self.object = self.get_object()
+        self.object.delete(self,user=request.user)
+        return redirect(self.get_success_url())
+    
+    
+        
     
 class AddExpenseView(generic.CreateView):
     
