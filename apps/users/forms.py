@@ -8,10 +8,10 @@ class UserSettingsForm(forms.Form):
     
     send_mail_when_divorcee_approve = forms.BooleanField(label=lang_forms_login.mail_approve,required=False)
     send_mail_when_divorcee_balance = forms.BooleanField(label=lang_forms_login.mail_balance,required=False)
-    user_email = forms.EmailField(required=False)
+    user_email = forms.EmailField(required=False,label="Email")
     base_divorcee_participate = forms.IntegerField(label=lang_forms_login.base_participate)
-    password1 = forms.CharField(required=False,widget=forms.PasswordInput())                                                                     
-    password2 = forms.CharField(required=False,widget=forms.PasswordInput())
+    password1 = forms.CharField(required=False,widget=forms.PasswordInput(),label="New Password")                                                                     
+    password2 = forms.CharField(required=False,widget=forms.PasswordInput(),label="New Password Again")
     
     def clean(self):
         

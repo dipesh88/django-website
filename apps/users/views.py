@@ -63,7 +63,8 @@ class UserSettingsView(generic.FormView):
         user = self.request.user
         self.initial = {'send_mail_when_divorcee_approve':user.settings.send_mail_when_divorcee_approve,
                         'send_mail_when_divorcee_balance':user.settings.send_mail_when_divorcee_balance,
-                        'base_divorcee_participate':user.settings.base_divorcee_participate}
+                        'base_divorcee_participate':user.settings.base_divorcee_participate,
+                        'user_email':self.request.user.email}
     
         return super(UserSettingsView,self).get_initial() 
     
