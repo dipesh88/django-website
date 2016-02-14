@@ -24,6 +24,9 @@ MAX_PAGINATION_ITEMS_PER_PAGE = 10
 AUTH_SECONDS_TO_ACCESS_USER_SETTINGS  = 180
 
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'site_repo.django_add.authenticate.EmailAuth',)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'p#!smq)7&xp7o71s-l-8mld!j)+l6vep&*9a)6w3wuq%0d)#f2'
@@ -31,6 +34,7 @@ SECRET_KEY = 'p#!smq)7&xp7o71s-l-8mld!j)+l6vep&*9a)6w3wuq%0d)#f2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 DEBUG_SEND_EMAIL = True
+DEBUG_ALLOW_NON_UNIQUE_EMAIL = False
 
 # Change this in settings_production
 ALLOWED_HOSTS = ['127.0.0.1','localhost']

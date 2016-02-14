@@ -48,7 +48,8 @@ class UserSettingsView(generic.FormView):
     
     def get(self,request,*args,**kwargs):
         
-        assert not API.require_auth_to_user_settings(self.request)
+        if API.require_auth_to_user_settings(self.request):
+            return redirect((reverse("users:auth_user")))
         return super(UserSettingsView,self).get(request,*args,**kwargs)
     
     def get_form_kwargs(self,*args,**kwargs):

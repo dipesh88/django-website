@@ -21,6 +21,16 @@ def register_user(username,email,password,account_code):
             # don't create a user that wants to join an account but provided wrong code
             raise ValidationError(message="No account found for this account code. Please verify that you got the correct code")
    
+    if settings.DEBUG and settings.DEBUG_ALLOW_NON_UNIQUE_EMAIL:
+        pass # allow non unique emails, for testing
+    else:
+        try:
+            user = User.objects.filter(email=email).first()
+            if user != None:
+                raise ValidationError(message="Username or email")
+        except User.DoesNotExist:
+            pass
+                
         
     User.objects.create_user(username=username,email=email,password=password)
     user = authenticate(username=username,password=password)    
