@@ -2,11 +2,41 @@
 {% load static from staticfiles %}
 
 
+ 
 {% block main_content %}
 
+<div class="col-xs-6">
     <form action='' method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-    <input type="submit" value="Sign Up"> </form>
+    <input type="submit" value="Sign Up" class="btn btn-primary btn-lg"> </form>
+</div>
+
+<div class="col-xs-3">
+
+  <div class="panel panel-body panel-info" style="border:none;">
+  <div class=" panel-heading">
+    <h3 class="panel-title"> DivorceCalcs on your own</h3>
+  </div>
+  <div class="panel-footer">
+    Simply track your shared expenses, and what your divorcee should pay you to participate
+  </div>
+</div>
+
+<div class="panel panel-body panel-info" style="border:none;">
+  <div class=" panel-heading">
+    <h3 class="panel-title"> DivorceCalcs for both parents</h3>
+    The first parent signs-up, gets an account code, and invites the other parent with this code
+  </div>
+  <div class="panel-footer">
+  
+     <div><span class="glyphicon glyphicon-ok" style="padding-right:3px;" aria-hidden="true"></span> Each parent logs his/her own expenses </p>
+    <p> <span class="glyphicon glyphicon-ok" style="padding-right:3px;" aria-hidden="true"> Each parent watch and approve the other parent expenses </p>
+    <p> <span class="glyphicon glyphicon-ok" style="padding-right:3px;" aria-hidden="true"> Every month a balance of mutual expenses is calculated </p>
+  
+  </div>
+</div>
+</div>
+
 
 {% endblock main_content %}
