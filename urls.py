@@ -52,7 +52,9 @@ urlpatterns = [
     url(r'^search/$',SearchView.as_view(),name='search_view'),
     
     # public info
-    url(r'^about/$',public_info_views.AboutPublicView.as_view(),name="about_public")
+    url(r'^about/$',public_info_views.AboutPublicView.as_view(),name="about_public"),
+    url(r'^terms-of-service/$',public_info_views.TOSPublicView.as_view(),name="tos_public"),
+    url(r'^privacy/$',public_info_views.PrivacyPolicyView.as_view(),name="privacy_policy_public")
 ]
 
 if settings.DEBUG:
