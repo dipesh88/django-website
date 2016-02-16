@@ -3,22 +3,33 @@ function set_sidebar(sidebar_item){
     case 'expenses':
         {$("#sidebar-expenses").addClass("active");
         $("#sidebar-balance").removeClass("active");
-        $("#sidebar-settings").removeClass("active");}
+        $("#sidebar-settings").removeClass("active");
+        $("#sidebar-how-to").removeClass("active");}
+        
         break;
     case 'balance':
         {$("#sidebar-expenses").removeClass("active");
         $("#sidebar-balance").addClass("active");
-        $("#sidebar-settings").removeClass("active");}
+        $("#sidebar-settings").removeClass("active");
+        $("#sidebar-how-to").removeClass("active");}
         break;
     case 'settings':
         {$("#sidebar-expenses").removeClass("active");
         $("#sidebar-balance").removeClass("active");
-        $("#sidebar-settings").addClass("active");}
+        $("#sidebar-settings").addClass("active");
+        $("#sidebar-how-to").removeClass("active");}
+        break;
+    case 'how-to':
+        {$("#sidebar-expenses").removeClass("active");
+        $("#sidebar-balance").removeClass("active");
+        $("#sidebar-settings").removeClass("active");
+        $("#sidebar-how-to").addClass("active");}
         break;
     case 'none':
         {$("#sidebar-expenses").removeClass("active");
         $("#sidebar-balance").removeClass("active");
-        $("#sidebar-settings").removeClass("active");}
+        $("#sidebar-settings").removeClass("active");
+        $("#sidebar-how-to").removeClass("active");}
         break;
         
     }

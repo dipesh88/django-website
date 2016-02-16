@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as django_auth_views
 
 from home.views import HomePageView
+from apps.help import views as help_views
 from apps.public.auth import views as auth_views
 from apps.public.info import views as public_info_views
 from apps.search.views import SearchView
@@ -50,6 +51,8 @@ urlpatterns = [
     url(r'^expenses/', include('site_repo.apps.expenses.urls',namespace='expenses')),
     url(r'^balance/', include('site_repo.apps.balance.urls',namespace='balance')),   
     url(r'^search/$',SearchView.as_view(),name='search_view'),
+    
+    url(r'^how-to/$',help_views.IntroView.as_view(),name='intro'),
     
     # public info
     url(r'^about/$',public_info_views.AboutPublicView.as_view(),name="about_public"),
