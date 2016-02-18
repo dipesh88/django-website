@@ -13,7 +13,6 @@
     
 
 </head>
-
 <body id="home">
 
 	<!-- Preloader -->
@@ -31,7 +30,8 @@
      </div>
 		<div class="col-xs-11 text-right">
 		
-			<a href="#" style="color:white;font-weight:bold;" data-toggle="modal" data-target="#myModal">  Sign-in </a>
+			<a href="#" style="color:white;font-weight:bold;" data-toggle="modal" data-target="#myModal" id="show_sign_in_intro">
+			Sign-in </a>
 		</div>
 		<div class="col-xs-12 text-center abcen1">
 			
@@ -434,6 +434,8 @@
 		$(document).ready( function() {
 		  $('.navbar-default').stickUp();
 		  
+		  {% include "elements/page_id.html" %}
+		  {% block page_id %}home_page{% endblock page_id %}
 		});
 	  });
 	
