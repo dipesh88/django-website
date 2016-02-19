@@ -5,12 +5,10 @@ from site_repo.tests.selenium_site import actions
 
 class SignIn(SeleniumWebTestCase):
     
-    def runTest(self):
-        pass
     
     def test_signin(self):
         
-        actions.sign_in_home_page(self.browser, "john", "123")
+        actions.sign_in_home_page(self.browser, "john", "123456")
         time.sleep(10)
         
 if __name__ == '__main__':

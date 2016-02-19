@@ -10,7 +10,12 @@ def verify_browser(browser):
             return True
         
     return False
+
+
+def is_user_input_field(input_name):
     
+    return not (len(input_name) < 1 or input_name in selenium_settings.EXCLUDE_FIELDS)
+ 
     
 
 def full_url(url):

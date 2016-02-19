@@ -1,4 +1,4 @@
-from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException,InvalidElementStateException
 
 class NonUniqueHtmlElementId(Exception):
     def __init__(self,args=None):

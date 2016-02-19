@@ -10,9 +10,10 @@ from .selenium_settings import WEBDRIVERS
 class WebElementBase(object):
     '''application element which may not correspond to an HTML tags'''
     
-    def __init__(self,browser,*args,**kwargs):
+    def __init__(self,*args,**kwargs):
         
         try:
+            browser = kwargs['browser']
             assert verify_browser(browser)
             self.browser = browser
             self.wrapper = SeleniumWrapper(browser)
@@ -25,8 +26,8 @@ class WebElementHtmlBase(WebElementBase):
     _elemnt_type = None
     element = None
     
-    def __init__(self, browser):
-        super(WebElementHtmlBase,self).__init__(browser)
+    def __init__(self,*args,**kwargs):
+        super(WebElementHtmlBase,self).__init__(*args,**kwargs)
     
     @property
     def element_type(self):
@@ -40,11 +41,11 @@ class WebElementHtmlBase(WebElementBase):
     
 class WebElementById(WebElementHtmlBase):
             
-    def __init__(self,browser,*args,**kwargs):
+    def __init__(self,*args,**kwargs):
                 
-        super(WebElementById,self).__init__(browser,*args,**kwargs)
-        if kwargs.has_key('id'):
-            self.element_id = kwargs['id']
+        super(WebElementById,self).__init__(*args,**kwargs)
+        if kwargs.has_key('element_id'):
+            self.element_id = kwargs['element_id']
         
     @property
     def element_id(self):
@@ -53,16 +54,16 @@ class WebElementById(WebElementHtmlBase):
     @element_id.setter
     def element_id(self,element_id):
         self._element_id = element_id
-        self.element = self.html_element.get_html_element_by_id(element_id)
+        self.element = self.wrapper.get_html_element_by_id(element_id)
         
         
 class WebElementByClass(WebElementHtmlBase):
             
-    def __init__(self,browser,*args,**kwargs):
+    def __init__(self,*args,**kwargs):
         
         _element_class = None
                 
-        super(WebElementByClass,self).__init__(browser,*args,**kwargs)        
+        super(WebElementByClass,self).__init__(*args,**kwargs)        
         if kwargs.has_key('class'):
             self.element_class = kwargs['class']
     

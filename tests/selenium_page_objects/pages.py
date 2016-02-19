@@ -18,9 +18,10 @@ class WebPageBase(object):
     check_page_id = selenium_settings.CHECK_PAGE_ID
     forms = {}
     
-    def __init__(self,browser,*args,**kwargs):
+    def __init__(self,*args,**kwargs):
         
         try:
+            browser = kwargs['browser']
             assert verify_browser(browser)
             self.browser = browser
             self.wrapper = SeleniumWrapper(browser)
@@ -73,17 +74,17 @@ class WebPageBase(object):
 class PublicPage(WebPageBase):
     """ not login required"""
         
-    def __init__(self,browser,*args,**kwargs):
+    def __init__(self,*args,**kwargs):
         
-        super(PublicPage,self).__init__(browser,*args,**kwargs)
-                
+        super(PublicPage,self).__init__(*args,**kwargs)
+        
         
 class LoginPage(WebPageBase):
     """login required """
         
-    def __init__(self,browser,*args,**kwargs):
+    def __init__(self,*args,**kwargs):
                 
-        super(LoginPage,self).__init__(browser,*args,**kwargs)
+        super(LoginPage,self).__init__(*args,**kwargs)
         
 
      
