@@ -13,15 +13,16 @@ from site_repo.tests.selenium_site.login_pages import ExpensesMonthPage
 class SignInTest(SeleniumWebTestCaseWithData):
     
     initial_users = data1.Lusers
-    initial_expenses = data1.Dexpenses       
+    initial_expenses = data1.Dexpenses
     
     def test_authenticate(self):
         user = authenticate(username="john",password="123456")
         self.assertIsNotNone(user)
     
     def test_signin(self):
-        actions.sign_in_home_page(self.browser, "john", "123456")
-        ExpensesMonthPage(browser=self.browser)
+        action = actions.SignInHomePageAction()
+        self.browser = action.run(browser=self.browser,username="john",password="123456")
+        exp_month = ExpensesMonthPage(browser=self.browser)
         
         
 if __name__ == '__main__':     

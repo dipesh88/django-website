@@ -1,6 +1,11 @@
-from public_pages import HomePage
+from site_repo.tests.selenium_page_objects.actions import SeleniumWebActionBase
 
-def sign_in_home_page(browser,username,password):
+from . import public_pages
+from . import login_pages
+
+class SignInHomePageAction(SeleniumWebActionBase):
     
-    home_page = HomePage(browser=browser)
-    home_page.sign_in(username,password)
+    def action_sign_in_home_page(self,browser,username,password):
+    
+        home_page = public_pages.HomePage(browser=browser)
+        home_page.sign_in(username,password)

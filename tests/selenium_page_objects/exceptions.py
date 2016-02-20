@@ -15,3 +15,7 @@ class ElementStateExcpetion(Exception):
 class ActionFailed(Exception):
     def __init__(self,args=None):
         self.args = args
+        
+class NoActionMethod(Exception):
+    def __init__(self,args=None):
+        self.args = args
