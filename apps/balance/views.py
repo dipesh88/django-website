@@ -68,7 +68,10 @@ class ClearMonthBalanceView(generic.DetailView):
         divorcee_cleared = lang_balance.cleared if self.request.user.divorcee in L else lang_balance.not_cleared
         context['user_cleared'] = self.request.user in L
         context['me_cleared'] = me_cleared%self.request.user.username
-        context['divorcee_cleared'] = divorcee_cleared%self.request.user.divorcee.username        
+        if self.request.user.divorcee:
+            context['divorcee_cleared'] = divorcee_cleared%self.request.user.divorcee.username 
+        else:
+            context['divorcee_cleared'] = ""        
         
         return dict(context,**self.kwargs)
         
@@ -117,7 +120,13 @@ class MonthBalanceView(generic.DetailView):
         me_cleared = lang_balance.cleared if self.request.user in L else lang_balance.not_cleared
         divorcee_cleared = lang_balance.cleared if self.request.user.divorcee in L else lang_balance.not_cleared
         context['me_cleared'] = me_cleared%self.request.user.username
-        context['divorcee_cleared'] = divorcee_cleared%self.request.user.divorcee.username        
+        if self.request.user.divorcee:
+            context['divorcee_cleared'] = divorcee_cleared%self.request.user.divorcee.username 
+        else:
+            context['divorcee_cleared'] = ""
+            
+        
+               
         
         context['approved'] =  {'all':'All','yes': 'Approved','no':'Not Approved'}[self.approved]
         year = int(self.kwargs['year'])
