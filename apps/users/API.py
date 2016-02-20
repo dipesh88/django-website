@@ -11,7 +11,7 @@ from ...cache.API import clear_user_cache
 from ..accounts.models import Account
 from ..tasks_queue.API import push_task_to_queue
 
-def register_user(username,email,password,account_code):
+def register_user(username,email,password,account_code,mail=True):
     
     account = None
     if len(account_code) > 0:
@@ -48,7 +48,8 @@ def register_user(username,email,password,account_code):
     account.save()
     user.account = account
     
-    send_mail_to_user(user,**lang_mail.welcome_mail)
+    if mail:
+        send_mail_to_user(user,**lang_mail.welcome_mail)
     
     return user
     

@@ -17,6 +17,7 @@ class HomePage(PublicPage):
         self.browser.execute_script("$('#show_sign_in_intro').click()")
         self.forms['sign_in'].set_input_text({'username':username,'password':password})
         self.forms['sign_in'].submit()
+        return self.browser
         
         
     
