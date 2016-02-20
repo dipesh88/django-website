@@ -58,6 +58,7 @@ class WebElementById(WebElementHtmlBase):
         
         
 class WebElementByClass(WebElementHtmlBase):
+    """ returns the first element with the class"""
             
     def __init__(self,*args,**kwargs):
         
@@ -69,7 +70,6 @@ class WebElementByClass(WebElementHtmlBase):
     
     @property
     def element_class(self):
-        ''' the element html class'''
         return self._element_class
     @element_class.setter
     def element_class(self,element_class):
@@ -77,3 +77,35 @@ class WebElementByClass(WebElementHtmlBase):
         self.element = self.html_element.get_html_element_by_class(self.element_class)
         
         
+class WebElementByXPath(WebElementHtmlBase):
+
+
+    _element_xpath = None
+    xpath_template = ""
+
+    def __init__(self,*args,**kwargs):
+
+        super(WebElementByXPath,self).__init__(*args,**kwargs)        
+        if kwargs.has_key('xpath'):
+            self.element_xpath = kwargs['xpath']
+
+    @property
+    def element_xpath(self):
+        return self._element_xpath
+    @element_xpath.setter
+    def element_xpath(self,element_xpath):
+        self._element_xpath = element_xpath
+        self.element = self.wrapper.get_html_element_by_xpath(self.element_xpath)
+
+    def set_element_by_xpath_template(self,*args):
+
+        self.element_xpath = self.xpath_template%tuple(args)
+        
+    
+    def new_element_by_xpath_template(self,*args):
+        
+        new_element = self.__class__.__new__(self.__class__)
+        new_element.__init__(browser=self.browser)
+        new_element.xpath_template = self.xpath_template
+        new_element.set_element_by_xpath_template(*args)
+        return new_element

@@ -6,19 +6,22 @@ os.environ["DJANGO_SETTINGS_MODULE"] = "site_repo.settings"
 from site_repo.tests.selenium_page_objects.helpers import custom_test_sort
 from site_repo.tests.selenium_site.test_case import SeleniumWebTestCaseWithData
 
+from site_repo.tests.load_data import data1
+from site_repo.tests.selenium_site import actions
+from site_repo.tests.selenium_site import login_pages
 
 class ExpenseTest(SeleniumWebTestCaseWithData):
     
-    initial_users = {}
-    initial_expenses = {}       
+    initial_users = data1.Lusers
+    initial_expenses = data1.Dexpenses   
         
-    def __init__(self, methodName='runTest'):
-        self.setUpTestData()
-        super(ExpenseTest,self).__init__(methodName)
-        
-    
     def test_edit_expense(self):
-        print "edit expense"
+        action = actions.SignInHomePageAction()
+        self.browser = action.run(browser=self.browser,username='john',password='123456')
+        exp_month = login_pages.ExpensesMonthPage(browser=self.browser)
+        exp_month.expenses = 2
+        
+       
     
     def test_add_expense(self):
         print "add expense"
