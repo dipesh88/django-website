@@ -12,7 +12,7 @@
         {% block additional_refs %} {% endblock additional_refs %}
         <script> 
                 $(function() {
-                        {% include "elements/page_id.html" %}
+                        $('body').append('<span id="page_id" page_id="{% block page_id %}base{% endblock page_id %}" style="display:none;"></span>');
                         {% block ready_script %} {% endblock ready_script %}
                 });                
         </script>

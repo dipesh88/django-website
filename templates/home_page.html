@@ -434,8 +434,8 @@
 		$(document).ready( function() {
 		  $('.navbar-default').stickUp();
 		  
-		  {% include "elements/page_id.html" %}
-		  {% block page_id %}home_page{% endblock page_id %}
+		  
+		  $('body').append('<span id="page_id" page_id="{% block page_id %}home_page{% endblock page_id %}" style="display:none;"></span>');
 		});
 	  });
 	

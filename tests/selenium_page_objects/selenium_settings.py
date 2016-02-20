@@ -12,7 +12,7 @@ Dselenium_defaults = {
     'DESIRED_CAPABILITIES': "",
     'HOST': '127.0.0.1:8000', # to use the site host settings.ALLOWED_HOSTS[0]
     'USE_HTTPS': False,
-    'CHECK_PAGE_ID': False
+    'CHECK_PAGE_ID': True
 }
 
 
