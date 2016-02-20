@@ -1,5 +1,6 @@
 import re
 from django import template
+from django.conf import settings
 
 register = template.Library()
 regex_page = re.compile("page=[0-9]+")
@@ -20,6 +21,10 @@ def currencyformat(value):
         value = 0
     return '{:0,}'.format(int(round(value)))
 
+
+@register.filter
+def date_format(value):
+    return value.strftime(settings.DATE_FULL_STRFTIME)
 
 @register.filter
 def striftrue(value,arg):

@@ -11,7 +11,9 @@ class ExpensesMonthPage(LoginPage):
         super(ExpensesMonthPage,self).__init__(url=url,*args,**kwargs)
         self._expense_base = elements_base.WebElementByXPath(browser=self.browser)
         self._expense_base.xpath_template = '//*[@id="expenses_table"]/tbody/tr[%s]'
-        
+        if kwargs.has_key('expenses'):
+            self.expenses = kwargs['expenses']
+            
     @property
     def expenses(self):    
         return self._expenses
