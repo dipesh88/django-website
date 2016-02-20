@@ -10,11 +10,7 @@ class MyTest(SeleniumWebTestCaseWithData):
     
     initial_users = {}
     initial_expenses = {}       
-        
-    def __init__(self, methodName='runTest'):
-        self.setUpTestData()
-        super(MyTest,self).__init__(methodName)
-    
+            
     def test_baz(self):
         self.assertEqual('baz','baz')
         print "test baz"

@@ -8,10 +8,16 @@ class SeleniumWebTestCaseWithData(SeleniumWebTestCaseBase):
     initial_expenses = None
     send_emails = False
     
-    def setUpTestData(self):
+    @classmethod
+    def setUpTestData(cls):
+        helpers.add_users(cls.initial_users,cls.send_emails)
+        helpers.add_expenses(cls.initial_expenses)
         
-        helpers.add_users(self.initial_users,self.send_emails)
-        helpers.add_expenses(self.initial_expenses)
+    @classmethod
+    def setUpClass(cls):
+        super(SeleniumWebTestCaseWithData,cls).setUpClass()
+        cls.setUpTestData()
+        
         
         
         

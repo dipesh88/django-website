@@ -14,14 +14,12 @@ class SignInTest(SeleniumWebTestCaseWithData):
     
     initial_users = data1.Lusers
     initial_expenses = data1.Dexpenses       
-        
-    def __init__(self, methodName='runTest'):
-        self.setUpTestData()
-        super(SignInTest,self).__init__(methodName)
+    
+    def test_authenticate(self):
+        user = authenticate(username="john",password="123456")
+        self.assertIsNotNone(user)
     
     def test_signin(self):
-        u = authenticate(username="john",password="123456")
-        assert u != None
         actions.sign_in_home_page(self.browser, "john", "123456")
         ExpensesMonthPage(browser=self.browser)
         
