@@ -10,14 +10,14 @@ from site_repo.tests.load_data import data1
 from site_repo.tests.selenium_site import actions
 from site_repo.tests.selenium_site.login_pages import ExpensesMonthPage
 
-class SignIn(SeleniumWebTestCaseWithData):
+class SignInTest(SeleniumWebTestCaseWithData):
     
     initial_users = data1.Lusers
     initial_expenses = data1.Dexpenses       
         
     def __init__(self, methodName='runTest'):
         self.setUpTestData()
-        super(SignIn,self).__init__(methodName)
+        super(SignInTest,self).__init__(methodName)
     
     def test_signin(self):
         u = authenticate(username="john",password="123456")
