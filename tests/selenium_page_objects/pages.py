@@ -31,7 +31,9 @@ class WebPageBase(object):
         if kwargs.has_key("check_page_id"):
             self.check_page_id = kwargs['check_page_id']
         
-        self.url = kwargs['url']
+        if kwargs.has_key('url'):
+            self.url = kwargs['url']
+        
         self._check_page_id() # set page_id by subclass before super().__init__ 
         
 
@@ -56,8 +58,8 @@ class WebPageBase(object):
                 if browser_page_id == self.page_id:
                     break
                 
-        assert browser_page_id == self.page_id
-     
+        assert browser_page_id.strip() == self.page_id
+    
     @property
     def url(self):
         ''' the element HTML type: div, form, etc'''

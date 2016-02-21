@@ -4,10 +4,10 @@
 
 {% block sidebar_item %} "expenses" {% endblock sidebar_item %}
 {% block page_title %} Expense Details {% endblock page_title %} 
-
+{% block page_id  %} expense_details {% endblock page_id %}
 {% block main_content %}
     
-    {{ model_html.styled }}
+    <div id="model_html">{{ model_html.styled }}</div>
      <h4> <span class="label label-info p-r-10"> Approval Status</span>
        <span class="panel panel-default" style="border:none;padding-left:10px;"> {% if expense.is_approved %}  Approved {% else %}  Pending {% endif %}</span>  </h4>
     <h4> <span class="label label-info p-r-10">Month to Balance</span>

@@ -19,11 +19,19 @@ class ExpenseTest(SeleniumWebTestCaseWithData):
             action = actions.SignInHomePageAction()
             self.browser = action.run(browser=self.browser,username='john',password='123456')
             exp_month = login_pages.ExpensesMonthPage(browser=self.browser,expenses=2)
-            self.assertEqual(exp_month.expenses[0].element.text,
-                             helpers.format_text_today_date_full('School john 130 50% {today} -'))
-            self.assertEqual(exp_month.expenses[1].element.text,
-                                         helpers.format_text_today_date_full('Sneakers john 90 50% {today} -'))            
+            self.assertEqual(exp_month.expenses[0].text,
+                             helpers.format_today_full('School john 130 50% {today} -'))
+            self.assertEqual(exp_month.expenses[1].text,
+                                         helpers.format_today_full('Sneakers john 90 50% {today} -'))            
     
+    def test_expense_details(self):
+        exp_month = login_pages.ExpensesMonthPage(browser=self.browser,expenses=2)
+        self.browser = exp_month.expenses[0].details()
+        exp_details = login_pages.ExpenseDetailsPage(browser=self.browser)
+        Lmodel_html = ['Description School', 'Place of purchase Book Store', 'Purchased by john',
+                       helpers.format_today('Date of Purchase {today}'), u'Cost 130.0', u'Divorcee participate % 50', u'Notes']
+        self.assertEqual(exp_details.model_html,Lmodel_html)
+        
     def test_edit_expense(self):
         pass
         
@@ -35,6 +43,7 @@ if __name__ == '__main__':
     from site_repo.tests.selenium_site.helpers import set_env
     set_env()
     Ltests = ['test_expenses_list',
+              'test_expense_details',
               'test_edit_expense',
               'test_add_expense']
     unittest.TestLoader.sortTestMethodsUsing = custom_test_sort(Ltests)
