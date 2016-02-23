@@ -25,7 +25,7 @@
 {% block top_nav %}        
         <p class="navbar-text navbar-right"> Signed in as {{ request.user.username }} </p>
         <a href="{% url 'logout_simple' %}" class="btn navbar-btn btn-default navbar-right"> Logout </a> 
-        <a href="{% url 'expenses:add' %}" class="btn navbar-btn btn-default navbar-right">
+        <a href="{% url 'expenses:add' %}" class="btn navbar-btn btn-default navbar-right" id="add_expense">
             <span  class="glyphicon glyphicon-plus" style="padding-right:5px;" aria-hidden="true"></span>
             Add Expense...
         </a>  
@@ -61,7 +61,7 @@
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation" id="sidebar-expenses">
                 <a href="{% url 'expenses:main_redirect' %}">
-                    <span class="glyphicon glyphicon-usd" style="padding-right:15px;" aria-hidden="true"></span> Expenses
+                    <span class="glyphicon glyphicon-usd" style="padding-right:15px;" aria-hidden="true" id="side_bar_expenses"></span> Expenses
                 </a>
             </li>
             <li role="presentation" id="sidebar-balance"> 

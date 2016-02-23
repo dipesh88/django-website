@@ -2,12 +2,15 @@ import re
 from .exceptions import NoActionMethod
 class SeleniumWebActionBase(object):
     
-    def run(self,browser,*args,**kwargs):
+    def __init__(self,browser):
+        self.browser = browser
+    
+    def run(self,*args,**kwargs):
         
         action_method =  getattr(self,self._first_action())
-        action_method(browser=browser,*args,**kwargs)
+        action_method(*args,**kwargs)
         
-        return browser
+        return self.browser
     
     def _first_action(self): 
         

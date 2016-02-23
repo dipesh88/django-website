@@ -70,23 +70,7 @@ class WebPageBase(object):
         self.browser.get(self._url)
         return self.browser
        
-        
-   
-    
-class PublicPage(WebPageBase):
-    """ not login required"""
-        
-    def __init__(self,*args,**kwargs):
-        
-        super(PublicPage,self).__init__(*args,**kwargs)
-        
-        
-class LoginPage(WebPageBase):
-    """login required """
-        
-    def __init__(self,*args,**kwargs):
-                
-        super(LoginPage,self).__init__(*args,**kwargs)
+
         
 
      

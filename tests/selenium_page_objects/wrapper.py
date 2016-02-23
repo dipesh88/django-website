@@ -2,7 +2,6 @@ from .exceptions import NonUniqueHtmlElementId
 from .helpers import poll_dom
 from .selenium_settings import WAIT_FOR_ELEMENT_TIMEOUT
 
-
 class SeleniumWrapper(object):
     
     browser = None

@@ -1,5 +1,13 @@
-from ..selenium_page_objects.pages import PublicPage
+from ..selenium_page_objects.pages import WebPageBase
 from . import forms
+
+class PublicPage(WebPageBase):
+    """ not login required"""
+        
+    def __init__(self,*args,**kwargs):
+        
+        super(PublicPage,self).__init__(*args,**kwargs)
+
 
 class HomePage(PublicPage):
     

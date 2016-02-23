@@ -33,6 +33,7 @@ class WebFormBase(object):
         for name,element in self.input_text_elements().iteritems():
             if name in Ddata_map:
                 try:
+                    element.clear()
                     element.send_keys(Ddata_map[name])
                     element.send_keys(Keys.TAB) 
                 except:

@@ -3,11 +3,11 @@
 
 {% block sidebar_item %} "expenses" {% endblock sidebar_item %}
 {% block page_title %} Edit Expense {% endblock page_title %} 
-
+{% block page_id %} edit_expense {% endblock page_id %}
 {% block main_content %}
     
     
-    <form action='' method="POST" class="col-xs-5">
+    <form action='' method="POST" class="col-xs-5" id="expense_form">
         {% csrf_token %}
         {{ form.as_p }}
     

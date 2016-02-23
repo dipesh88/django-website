@@ -1,5 +1,5 @@
 import datetime
-
+import functools
 from . import selenium_settings
 
 def verify_browser(browser):
@@ -53,6 +53,17 @@ def custom_test_sort(Ltests):
             return cmp(x,y)
         
     return sort_by_list_index
+
+def element_exists(func):    
+    @functools.wraps(func)
+    def wrapper(*args,**kwargs):
+        try:
+            func(*args,**kwargs)
+            return True
+        except:
+            return False
+    return wrapper
+
         
         
         

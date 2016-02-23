@@ -1,6 +1,74 @@
-from ..selenium_page_objects.pages import LoginPage
+from ..selenium_page_objects.pages import WebPageBase
 from ..selenium_page_objects import elements_base
+from ..selenium_page_objects.helpers import element_exists
 from . import elements
+from . import forms
+
+class LoginPage(WebPageBase):
+    """login required """
+        
+    def __init__(self,*args,**kwargs):
+                
+        super(LoginPage,self).__init__(*args,**kwargs)
+        
+    def add_expense(self):
+        self.wrapper.get_html_element_by_id("add_expense").click()
+        return self.browser
+    
+    def side_bar_expenses(self):
+        self.wrapper.get_html_element_by_id("side_bar_expenses").click()
+        return self.browser        
+  
+class ExpenseDeletePage(LoginPage):
+    
+    page_id = "delete_expense"
+    
+    def __init__(self,*args,**kwargs):
+        super(ExpenseDeletePage,self).__init__(*args,**kwargs)
+        form = forms.ExpenseDeleteForm(browser=self.browser)
+        form.get_form_element()
+        self.forms = {'delete_form':form}
+        
+    def delete(self):
+        
+        self.forms['delete_form'].submit()
+        return self.browser
+        
+    
+class ExpenseAddPage(LoginPage):
+    
+    page_id = "add_expense"
+    
+    def __init__(self,*args,**kwargs):
+    
+        super(ExpenseAddPage,self).__init__(*args,**kwargs)
+        form = forms.ExpenseForm(browser=self.browser)
+        form.get_form_element()
+        self.forms = {'add_form':form}
+            
+    def save(self):
+            
+        self.forms['add_form'].submit()
+        return self.browser    
+    
+
+class ExpenseEditPage(LoginPage):
+    
+    page_id = "edit_expense"
+    
+    def __init__(self,*args,**kwargs):
+        
+        super(ExpenseEditPage,self).__init__(*args,**kwargs)
+        form = forms.ExpenseForm(browser=self.browser)
+        form.get_form_element()
+        self.forms = {'edit_form':form}
+        
+    def save(self):
+        
+        self.forms['edit_form'].submit()
+        return self.browser
+    
+    
 
 class ExpenseDetailsPage(LoginPage):
     
@@ -10,6 +78,31 @@ class ExpenseDetailsPage(LoginPage):
     def model_html(self):
         m = self.wrapper.get_html_element_by_id("model_html")
         return m.text.split('\n')[:-1]
+    
+    @property
+    def approved(self):
+        status = self.wrapper.get_html_element_by_id("approval_status").text
+        return {"Approved":True,"Pending":False}[status.strip()]
+    
+    @property
+    @element_exists
+    def can_edit(self):
+        self.wrapper.get_html_element_by_id("edit_expense")
+        
+    @property
+    @element_exists
+    def can_delete(self):
+            self.wrapper.get_html_element_by_id("delete_expense")
+            
+    def edit(self):
+        self.wrapper.get_html_element_by_id("edit_expense").click()
+        return self.browser
+    
+    def delete(self):
+        self.wrapper.get_html_element_by_id("delete_expense").click()
+        return self.browser
+        
+        
     
     
 class ExpensesMonthPage(LoginPage):
