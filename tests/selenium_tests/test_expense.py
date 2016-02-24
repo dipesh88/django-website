@@ -40,7 +40,7 @@ class ExpenseTest(SeleniumWebTestCaseWithData):
         
         action = actions.EditFirstExpenseAction(browser=self.browser)
         exp_edit = login_pages.ExpenseEditPage(browser=action.run(expenses=2))
-        exp_edit.forms['edit_form'].set_input_text({'desc':'School Books'},clear_form=False)
+        exp_edit.form.set_input_text({'desc':'School Books'},clear_form=False)
         exp_details = login_pages.ExpenseDetailsPage(browser=exp_edit.save())
         Lmodel_html = ['Description School Books', 'Place of purchase Book Store', 'Purchased by john',
                                helpers.format_today('Date of Purchase {today}'), u'Cost 130.0', u'Divorcee participate % 50', u'Notes']
@@ -50,7 +50,7 @@ class ExpenseTest(SeleniumWebTestCaseWithData):
         exp_month = login_pages.ExpensesMonthPage(browser=self.browser,expenses=2)
         exp_add = login_pages.ExpenseAddPage(browser=exp_month.add_expense())
         Dinput = {'desc':'Books1','expense_sum':'100','place_of_purchase':'amazon.com','notes':'spare book'}
-        exp_add.forms['add_form'].set_input_text(Dinput,clear_form=False)
+        exp_add.form.set_input_text(Dinput,clear_form=False)
         exp_details = login_pages.ExpenseDetailsPage(browser=exp_add.save())
         Lmodel_html = ['Description Books1', 'Place of purchase amazon.com', 'Purchased by john',
                                        helpers.format_today('Date of Purchase {today}'), u'Cost 100.0', u'Divorcee participate % 50', u'Notes spare book']  

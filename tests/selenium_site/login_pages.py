@@ -25,13 +25,10 @@ class ExpenseDeletePage(LoginPage):
     
     def __init__(self,*args,**kwargs):
         super(ExpenseDeletePage,self).__init__(*args,**kwargs)
-        form = forms.ExpenseDeleteForm(browser=self.browser)
-        form.get_form_element()
-        self.forms = {'delete_form':form}
+        self.form = forms.ExpenseDeleteForm(browser=self.browser)
         
-    def delete(self):
-        
-        self.forms['delete_form'].submit()
+    def delete(self):        
+        self.form.submit()
         return self.browser
         
     
@@ -42,13 +39,10 @@ class ExpenseAddPage(LoginPage):
     def __init__(self,*args,**kwargs):
     
         super(ExpenseAddPage,self).__init__(*args,**kwargs)
-        form = forms.ExpenseForm(browser=self.browser)
-        form.get_form_element()
-        self.forms = {'add_form':form}
+        self.form = forms.ExpenseForm(browser=self.browser)
             
-    def save(self):
-            
-        self.forms['add_form'].submit()
+    def save(self):            
+        self.form.submit()
         return self.browser    
     
 
@@ -59,17 +53,12 @@ class ExpenseEditPage(LoginPage):
     def __init__(self,*args,**kwargs):
         
         super(ExpenseEditPage,self).__init__(*args,**kwargs)
-        form = forms.ExpenseForm(browser=self.browser)
-        form.get_form_element()
-        self.forms = {'edit_form':form}
+        self.form = forms.ExpenseForm(browser=self.browser)
         
-    def save(self):
-        
-        self.forms['edit_form'].submit()
+    def save(self):        
+        self.form.submit()
         return self.browser
     
-    
-
 class ExpenseDetailsPage(LoginPage):
     
     page_id = "expense_details"

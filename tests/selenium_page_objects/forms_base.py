@@ -6,7 +6,8 @@ from .helpers import verify_browser,is_user_input_field
 from .wrapper import SeleniumWrapper
 
 class WebFormBase(object):
-
+    """ base class, not to use directly in scripts """
+    
     def __init__(self,*args,**kwargs):
         pass
         
@@ -61,6 +62,7 @@ class WebFormById(WebElementById,WebFormBase):
     def __init__(self,*args,**kwargs):
         
         super(WebFormById,self).__init__(*args,**kwargs)
+        self.get_form_element()
         
 
 class WebFormByClass(WebElementByClass,WebFormBase):
@@ -68,5 +70,6 @@ class WebFormByClass(WebElementByClass,WebFormBase):
     def __init__(self,*args,**kwargs):
 
         super(WebFormByClass,self).__init__(*args,**kwargs)
+        self.get_form_element()
         
     
