@@ -21,6 +21,13 @@ class ExpenseDeleteForm(forms_base.WebFormById):
         
         element_id = "delete_form"
         super(ExpenseDeleteForm,self).__init__(element_id=element_id,*args,**kwargs)
+        
+class SignUpForm(forms_base.WebFormById):
+    
+    def __init__(self,*args,**kwargs):
+        
+        element_id = "sign_up_form"
+        super(SignUpForm,self).__init__(element_id=element_id,*args,**kwargs)
 
 
     

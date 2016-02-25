@@ -24,6 +24,25 @@ class HomePage(PublicPage):
         self.form.set_input_text({'username':username,'password':password})
         self.form.submit()
         return self.browser
+    
+    def sign_up(self):
+        
+        self.wrapper.get_html_element_by_id("sign_up").click()
+        return self.browser
+    
+    
+class SignUpPage(PublicPage):
+    
+    def __init__(self,*args,**kwargs):
+    
+        self.page_id = "sign_up"
+        super(SignUpPage,self).__init__(*args,**kwargs)
+        self.form = forms.SignUpForm(browser=self.browser)
+        
+    def sign_up(self):
+        self.form.submit()
+        return self.browser
+        
         
         
     

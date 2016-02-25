@@ -24,7 +24,7 @@
 
 {% block top_nav %}        
         <p class="navbar-text navbar-right"> Signed in as {{ request.user.username }} </p>
-        <a href="{% url 'logout_simple' %}" class="btn navbar-btn btn-default navbar-right"> Logout </a> 
+        <a href="{% url 'logout_simple' %}" class="btn navbar-btn btn-default navbar-right" id="logout"> Logout </a> 
         <a href="{% url 'expenses:add' %}" class="btn navbar-btn btn-default navbar-right" id="add_expense">
             <span  class="glyphicon glyphicon-plus" style="padding-right:5px;" aria-hidden="true"></span>
             Add Expense...

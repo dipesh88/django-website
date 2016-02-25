@@ -8,7 +8,7 @@ class SignInHomePageAction(SeleniumWebActionBase):
     def action_sign_in_home_page(self,username,password):
     
         home_page = public_pages.HomePage(browser=self.browser)
-        home_page.sign_in(username,password)
+        return home_page.sign_in(username,password)
         
 class EditFirstExpenseAction(SeleniumWebActionBase):
     

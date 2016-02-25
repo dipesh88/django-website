@@ -7,8 +7,12 @@ class SeleniumWebActionBase(object):
     
     def run(self,*args,**kwargs):
         
+        if kwargs.has_key("browser"):
+            self.browser = kwargs['browser']
+            kwargs.pop('browser')
+        
         action_method =  getattr(self,self._first_action())
-        action_method(*args,**kwargs)
+        self.browser = action_method(*args,**kwargs)
         
         return self.browser
     

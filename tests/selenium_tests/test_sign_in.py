@@ -20,8 +20,8 @@ class SignInTest(SeleniumWebTestCaseWithData):
         self.assertIsNotNone(user)
     
     def test_signin(self):
-        action = actions.SignInHomePageAction()
-        self.browser = action.run(browser=self.browser,username="john",password="123456")
+        action = actions.SignInHomePageAction(browser=self.browser)
+        self.browser = action.run(username="john",password="123456")
         exp_month = ExpensesMonthPage(browser=self.browser)
         
         

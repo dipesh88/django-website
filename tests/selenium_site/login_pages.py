@@ -17,7 +17,13 @@ class LoginPage(WebPageBase):
     
     def side_bar_expenses(self):
         self.wrapper.get_html_element_by_id("side_bar_expenses").click()
-        return self.browser        
+        return self.browser
+    
+    def logout(self):
+        self.wrapper.get_html_element_by_id("logout").click()
+        return self.browser
+        
+        
   
 class ExpenseDeletePage(LoginPage):
     
