@@ -23,7 +23,27 @@ class LoginPage(WebPageBase):
         self.wrapper.get_html_element_by_id("logout").click()
         return self.browser
         
+class ExpenseApprovePage(LoginPage):
+    
+    page_id = "approve_expense"
+    
+    def __init__(self,*args,**kwargs):
+        super(ExpenseApprovePage,self).__init__(*args,**kwargs)
+        self.form = forms.ExpenseApproveForm(browser=self.browser)
         
+    def approve_yes(self):
+        self.form.approve_check(True)
+        return self.browser
+       
+    def approve_no(self):
+        self.form.approve_check(False)
+        return self.browser
+    
+    def save(self):
+        self.form.submit()
+        return self.browser
+        
+    
   
 class ExpenseDeletePage(LoginPage):
     
@@ -89,12 +109,21 @@ class ExpenseDetailsPage(LoginPage):
     def can_delete(self):
             self.wrapper.get_html_element_by_id("delete_expense")
             
+    @property
+    @element_exists
+    def can_approve(self):
+        self.wrapper.get_html_element_by_id("approve_expense")
+                    
     def edit(self):
         self.wrapper.get_html_element_by_id("edit_expense").click()
         return self.browser
     
     def delete(self):
         self.wrapper.get_html_element_by_id("delete_expense").click()
+        return self.browser
+    
+    def approve(self):
+        self.wrapper.get_html_element_by_id("approve_expense").click()
         return self.browser
         
         

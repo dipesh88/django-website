@@ -1,4 +1,4 @@
-from site_repo.tests.selenium_page_objects import elements_base
+from site_repo.tests.selenium_page_objects import elements_base,exceptions
 
 class ExpenseRowElement(object):
     
@@ -18,3 +18,14 @@ class ExpenseRowElement(object):
         
         self.element.find_element_by_xpath(self.xpath+"/td[1]/a").click()
         return self.browser
+    
+    @property
+    def approved(self):
+        
+        try:
+            approved_value = self.element.find_element_by_xpath(self.xpath+"/td[6]/input").get_attribute("checked")
+        except exceptions.NoSuchElementException:
+            approved_value = self.element.find_element_by_xpath(self.xpath+"/td[6]/span").get_attribute("approved")
+            
+        return approved_value == "true"
+    

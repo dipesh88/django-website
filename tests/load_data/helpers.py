@@ -12,7 +12,7 @@ _expense_fields = (
                   'place_of_purchase',
                   'notes')
 
-def add_users(Lusers,send_email):
+def add_users(Lusers,send_email=False):
     """ [{'username':'user1','password':'123'}, ... ] """
     
     for Duser in Lusers:

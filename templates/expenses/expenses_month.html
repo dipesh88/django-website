@@ -97,9 +97,9 @@
                     {% else %}
                     
                            {% if expense.is_approved %} 
-                               <span  class="glyphicon glyphicon-ok"  aria-hidden="true"></span>
+                               <span  class="glyphicon glyphicon-ok"  aria-hidden="true" approved="true"></span>
                            {% else %}
-                               <span> - </span>
+                               <span approved="false"> - </span>
                            {% endif %}
                         
                     {% endif %}

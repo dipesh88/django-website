@@ -4,6 +4,7 @@
 
 {% block sidebar_item %} "expenses" {% endblock sidebar_item %}
 {% block page_title %} Approve Expense{% endblock page_title %} 
+{% block page_id %} approve_expense {% endblock page_id %}
 
 {% block main_content %}
     
@@ -16,7 +17,7 @@
     </h4>
     
     
-    <form action='' method="POST" class="col-xs-4">
+    <form action='' method="POST" class="col-xs-4" id="approve_form">
         {% csrf_token %}
         {{ form.as_p }} 
         
