@@ -61,10 +61,14 @@
             <h4>  {{ divorcee_cleared}} </h4>
             
             {% if can_clear %}
-                <a href="{% url "balance:clear" year month %}" class="btn btn-primary pull-right" role="button"> Change Balance </a>
+                <a href="{% url "balance:clear" year month %}" class="btn btn-primary pull-right" role="button"> Change Balance Status</a>
             {% else %}
                  <h4> <span class="label label-info p-r-10"> You can clear a month only after it finishes </span></h4>
             {% endif %}
 </div>    
 
+<div class="col-xs-1"></div>
+<div class="col-xs-5">
+    {% include "elements/balance_pay.html" %}
+</div>
 {% endblock main_content %}

@@ -1,0 +1,9 @@
+{% load global_tags %}
+<h4> <span class="label label-info p-r-10"> Pay </span></h4>
+<h4>
+    {% if pay > 0 %}
+        I have to pay {{ user.divorcee.username }} {{ pay|currencyformat }}
+    {% else %}    
+        {{ user.divorcee.username }}  has to pay me {{ pay|abs_value|currencyformat }}
+    {% endif %}
+</h4>

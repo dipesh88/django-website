@@ -71,7 +71,9 @@ class ClearMonthBalanceView(generic.DetailView):
         if self.request.user.divorcee:
             context['divorcee_cleared'] = divorcee_cleared%self.request.user.divorcee.username 
         else:
-            context['divorcee_cleared'] = ""        
+            context['divorcee_cleared'] = ""
+            
+        context["pay"] = self.object['user_participate'] - self.object['divorcee_participate']
         
         return dict(context,**self.kwargs)
         
@@ -124,14 +126,13 @@ class MonthBalanceView(generic.DetailView):
             context['divorcee_cleared'] = divorcee_cleared%self.request.user.divorcee.username 
         else:
             context['divorcee_cleared'] = ""
-            
-        
-               
-        
+       
         context['approved'] =  {'all':'All','yes': 'Approved','no':'Not Approved'}[self.approved]
         year = int(self.kwargs['year'])
         month = int(self.kwargs['month'])
-        context['can_clear'] = verify_month_is_before_this_month(year,month,raise_exception=False)        
+        context['can_clear'] = verify_month_is_before_this_month(year,month,raise_exception=False) 
+        
+        context["pay"] = self.object['user_participate'] - self.object['divorcee_participate']
              
         return dict(context,**self.kwargs)    
                 

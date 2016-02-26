@@ -88,12 +88,14 @@
 </div>    
 <div class="col-xs-1"></div>
 <div class="col-xs-4">
-            <h4> <span class="label label-info p-r-10"> Balance Status </span></h4>           
-           
+
+{% include "elements/balance_pay.html" %}<br>
+            <h4> <span class="label label-info p-r-10"> Balance Status </span></h4>                      
             <h4> {{ me_cleared }} </h4>
             <h4>  {{ divorcee_cleared}} </h4>
-
-
+    
 </div>
+
+
 
 {% endblock main_content %}

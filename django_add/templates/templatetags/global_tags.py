@@ -23,6 +23,16 @@ def currencyformat(value):
 
 
 @register.filter
+def abs_value(value):
+    try:
+        float(value)
+    except:
+        value = 0
+  
+    return abs(value)
+
+
+@register.filter
 def date_format(value):
     return value.strftime(settings.DATE_FULL_STRFTIME)
 
