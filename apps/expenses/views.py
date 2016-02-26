@@ -140,7 +140,7 @@ class ChangeExpenceBalanceMonthView(ModelToHtmlMixin,generic.UpdateView):
             # to move the expense to another month, where it could be balanced w/o re-entry
             return super(ChangeExpenceBalanceMonthView,self).get(request,*args,**kwargs) 
         else:
-            return redirect(reverse(self.object.get_absolute_url()))
+            return redirect(self.object)
 
 
 class ApproveExpenseView(ModelToHtmlMixin,generic.UpdateView):
@@ -173,7 +173,7 @@ class ApproveExpenseView(ModelToHtmlMixin,generic.UpdateView):
         if self.object.owner != request.user and  self.object.can_update():
             return super(ApproveExpenseView, self).get(request, *args, **kwargs)
         else:
-            return redirect(self.object.get_absolute_url()) 
+            return redirect(self.object) 
 
 class EditExpenseView(generic.UpdateView):
     
@@ -197,7 +197,7 @@ class EditExpenseView(generic.UpdateView):
         if expense.owner == request.user and not(expense.is_approved) and expense.can_update() :
             return super(EditExpenseView, self).get(request, *args, **kwargs)
         else:
-            return redirect(self.object.get_absolute_url())        
+            return redirect(self.object)        
         
     
 class ExpenseView(ModelToHtmlMixin,generic.DetailView):

@@ -32,7 +32,7 @@ class ClearMonthBalanceChangedView(generic.DetailView):
                                       year=year,
                                       cleared=cleared)
     
-        return redirect(balance.get_absolute_url())  
+        return redirect(balance)  
         
             
         
