@@ -11,6 +11,9 @@ class AuthorizedViews(object):
     
     def process_view(self,request,view_func,*arg,**kwargs):
         
+        if request.path_info.split('/')[1] == settings.ADMIN_URL:
+            return None
+        
         if view_func.__module__  in settings.PUBLIC_VIEWS_MODULES:
             return None
         

@@ -29,7 +29,7 @@ from apps.search.views import SearchView
 
 urlpatterns = [
     # admin
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^%s/'%settings.ADMIN_URL, include(admin.site.urls)),
     
     # home
     url(r'^$', HomePageView.as_view(), name='home_page'),
