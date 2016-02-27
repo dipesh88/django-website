@@ -7,11 +7,14 @@ import django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "site_repo.settings")
 os.environ["DJANGO_SETTINGS_MODULE"] = "site_repo.settings"
 django.setup()
+from django.conf import settings
+
 
 # users
 from site_repo.apps.users.API import register_user
 from site_repo.apps.accounts.models import Account
-from site_config.secrets import Duser1,Duser2
+from settings import DEMO_USER1,DEMO_USER2
+Duser1,Duser2 = DEMO_USER1,DEMO_USER2
 Duser1['account_code'] = ""
 register_user(**Duser1)
 account_code = Account.objects.get(pk=1).account_code
