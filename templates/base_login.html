@@ -30,8 +30,22 @@
 {% endblock ready_script %}
 
 
-{% block top_nav %}        
-        <p class="navbar-text navbar-right"> Signed in as {{ request.user.username }} </p>
+{% block top_nav %}
+
+        {% if DEMO %}
+        <a href="{% url 'sign_up_simple' %}" class="btn navbar-btn btn-danger navbar-left" style="color:white;font-weight:bold;" role="button">
+            Sign-Up for Free!
+        </a>
+        
+        {% endif %}
+
+       <p class="navbar-text navbar-right" style="padding-right:10px;"> 
+       {% if DEMO %}
+             Demo Account: John
+        {% else  %}
+            Signed in: {{ request.user.username }} 
+        {% endif %}
+       </p>
         <a href="{% url 'logout_simple' %}" class="btn navbar-btn btn-default navbar-right" id="logout"> Logout </a> 
         <a href="{% url 'expenses:add' %}" class="btn navbar-btn btn-default navbar-right" id="add_expense">
             <span  class="glyphicon glyphicon-plus" style="padding-right:5px;" aria-hidden="true"></span>
