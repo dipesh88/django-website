@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^$', HomePageView.as_view(), name='home_page'),
     
     # auth
+    url(r'^demo/$', auth_views.demo_account, name='demo_account'),
     url(r'^sign-up/$', auth_views.SignUpView.as_view(), name='sign_up_simple'),
     url(r'^login/$', auth_views.LoginView.as_view(), name='login_simple'),
     url(r'^logout/$', auth_views.logout_user, name='logout_simple'),

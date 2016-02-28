@@ -41,7 +41,10 @@
 				<li><a href=" {% url "sign_up_simple" %} " 
 				class="btn  btn-lg mybutton_cyano wow fadeIn" data-wow-delay="0.8s"><span class="network-name">Sign-Up</span></a>
 				</li>
-				<li id="download" ><a href="#downloadlink" class="btn  btn-lg mybutton_standard wow swing wow fadeIn" data-wow-delay="1.2s"><span class="network-name">See Demo Now</span></a>
+				<li id="download" >
+				<a href="{% url 'demo_account' %}" class="btn  btn-lg mybutton_standard wow swing wow fadeIn" data-wow-delay="1.2s">
+				<span class="network-name">See Demo Now</span>
+				</a>
 				</li>
 			</ul>
 		</div>    

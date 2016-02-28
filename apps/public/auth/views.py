@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
@@ -13,7 +14,12 @@ from . import forms
 from site_repo.lang import forms_public as lang_forms_public
 from . import helpers
 
-
+def demo_account(request):
+    
+    user = authenticate(username=settings.DEMO_USER1['username'],
+                        password=settings.DEMO_USER1['password'])
+    login(request, user)
+    return HttpResponseRedirect(reverse("expenses:main_redirect"))
 
 def password_reset_view(request):
     
