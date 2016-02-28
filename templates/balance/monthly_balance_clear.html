@@ -8,13 +8,15 @@
 {% block ready_script %} 
     {{ block.super }}
     redirect_url = "{% url 'balance:clear_changed' year month %}?changed-to=";
-    $("#save_balance").on("click",function(){ 
-        if ($("#change_to:checked").length>0)
-            {window.location.replace(redirect_url+"cleared");}
-        else
-            {window.location.replace(redirect_url+"not-cleared");}
-        });
     
+    {% if not DEMO %}
+        $("#save_balance").on("click",function(){ 
+            if ($("#change_to:checked").length>0)
+                {window.location.replace(redirect_url+"cleared");}
+            else
+                {window.location.replace(redirect_url+"not-cleared");}
+            });
+    {% endif %}
 {% endblock ready_script %}
 
 {% block main_content %}
@@ -77,7 +79,7 @@
                     </label>
             </div>    
        <a href="{{ balance.balance_object.get_absolute_url }}" class="btn btn-danger" role="button"> Cancel </a>
-        <button id="save_balance" class="btn btn-success"> Save </button>
+        <button id="save_balance" class="btn btn-success save"> Save </button>
             
             
             

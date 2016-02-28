@@ -10,7 +10,7 @@
     <form action='' method="POST" class="col-xs-5" style="margin-top:25px;" id="delete_form">
         {% csrf_token %}
     <a href="{{ expense.get_absolute_url }}" class="btn btn-default" role="button" id="cancel"> Cancel </a>    
-    <input type="submit" value="Delete" class="btn btn-danger"> 
+    <input type="submit" value="Delete" class="btn btn-danger save"> 
     </form>
     
 {% endblock main_content %}

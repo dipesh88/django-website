@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
-{% block ready_script %} 
+{% block ready_script %}
     {{ block.super }}
+    
+    {% if DEMO %}    
+        $('.save').on('click',function(event){
+        event.preventDefault();
+        alert("Demo account can only view data. Sign-up for free to get your own account");
+            });    
+    {% endif %}
+    
                     var csrftoken = getCookie('csrftoken');
                     $.ajaxSetup({
                     beforeSend: function(xhr, settings) {
