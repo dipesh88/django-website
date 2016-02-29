@@ -39,6 +39,12 @@ SECRET_KEY = 'p#!smq)7&xp7o71s-l-8mld!j)+l6vep&*9a)6w3wuq%0d)#f2'
 DEBUG = False
 DEBUG_SEND_EMAIL = True
 DEBUG_ALLOW_NON_UNIQUE_EMAIL = False
+# Activate logging.debug() messages, to the log file at mysite/logs/debug.log
+DEBUG_LOG = False 
+# Activate django auto db logger, to the log file at mysite/logs/debug_db.log.
+# Note: to activates this log, django also requires that DEBUG=True 
+DEBUG_DB_LOG = False
+
 
 # Change this in settings_production
 ALLOWED_HOSTS = ['127.0.0.1','localhost']
@@ -157,7 +163,6 @@ CACHES = {
     }
 }
 
-
 # Sepcific Environment Settings (the order of imports is important)
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -185,13 +190,6 @@ except:
 
 # Logging:
 # https://docs.djangoproject.com/en/1.8/topics/logging
-
-# Activate logging.debug() messages, to the log file at mysite/logs/debug.log
-DEBUG_LOG = False 
-
-# Activate django auto db logger, to the log file at mysite/logs/debug_db.log.
-# Note: to activates this log, django also requires that DEBUG=True 
-DEBUG_DB_LOG = False
 
 # debug log filters (after the site_config settings imports)
 class RequireDebugLogTrue(logging.Filter):
