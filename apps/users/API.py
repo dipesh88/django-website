@@ -24,13 +24,8 @@ def register_user(username,email,password,account_code,mail=True):
     if settings.DEBUG and settings.DEBUG_ALLOW_NON_UNIQUE_EMAIL:
         pass # allow non unique emails, for testing
     else:
-        try:
-            user = User.objects.filter(email=email).first()
-            if user != None:
-                raise ValidationError(message="Username or email")
-        except User.DoesNotExist:
-            pass
-                
+        if User.objects.filter(email=email).exists():
+            raise ValidationError(message="Username or email")
         
     User.objects.create_user(username=username,email=email,password=password)
     user = authenticate(username=username,password=password)    
