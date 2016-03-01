@@ -32,8 +32,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'site_repo.django_add.authenticate.EmailAuth',)
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'p#!smq)7&xp7o71s-l-8mld!j)+l6vep&*9a)6w3wuq%0d)#f2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -109,20 +107,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'site_repo.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_db',
-        'USER': 'django',
-        'PASSWORD':'7a96e9e4c9L',
-        'HOST': '127.0.0.1',
-        'PORT': 3306
-    }
-}
 
 
 # Internationalization
