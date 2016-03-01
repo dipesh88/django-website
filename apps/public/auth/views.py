@@ -19,7 +19,7 @@ def demo_account(request):
     user = authenticate(username=settings.DEMO_USER1['username'],
                         password=settings.DEMO_USER1['password'])
     login(request, user)
-    return HttpResponseRedirect(reverse("expenses:main_redirect"))
+    return HttpResponseRedirect(reverse("expenses:monthly_all",kwargs={'year':2016,'month':1}))
 
 def password_reset_view(request):
     
