@@ -26,6 +26,7 @@ import datetime
 from itertools import cycle
 from django.contrib.auth.models import User
 from site_repo.apps.expenses.models import Expense
+from site_repo.apps.balance.models import MonthlyBalance
 from site_repo.tests.load_data.data2 import expenses
 
 Lpurchased_on = [
@@ -38,14 +39,22 @@ Lmonth_balanced = [1,1,1,1,1,1,1,2,2,2,2,2,3,3]
 users = {
     'user1':User.objects.get(username=Duser1['username']),
     'user2':User.objects.get(username=Duser2['username'])}
-owners = cycle(['user1','user2'])
+Lowners = [
+        1,1,2,1,2,2,1,
+        2,2,1,1,2,
+        2,1]
+
+Lapproved = [
+        True,True,True,True,True,True,True,
+        True,False,True,False,False,
+        False,True]
 
 for m in range(len(expenses)):
         
         expense_tuple = expenses[m]
         purchased_on = Lpurchased_on[m]
         e = Expense(
-                owner=users[owners.next()],
+                owner=users["user%s"%Lowners[m]],
                 date_purchased=datetime.date(2016,purchased_on[0],purchased_on[1]),
                 expense_sum=expense_tuple[0],
                 expense_divorcee_participate=expense_tuple[1],
@@ -53,8 +62,18 @@ for m in range(len(expenses)):
                 year_balanced=2016,
                 desc=expense_tuple[2],
                 place_of_purchase=expense_tuple[3],
-                notes=expense_tuple[4])
-        e.save()    
+                notes=expense_tuple[4],
+                is_approved = Lapproved[m])
+        e.save()
+        
+balance = MonthlyBalance.objects.get(pk=1)
+balance.divorcee1 = users['user1']
+balance.divorcee2 = users['user2']
+balance.save()
+        
+
+        
+
     
 
 
