@@ -15,7 +15,8 @@ class SignupForm(forms.Form):
     password = forms.CharField(max_length=32,widget=forms.PasswordInput)
     email = forms.EmailField()
     account_code = forms.CharField(max_length=36,min_length=36,required=False,
-                                   help_text=forms_public.signup_account_code)
+                                   help_text=forms_public.signup_account_code,
+                                   label="Account Code (Optional):")
     
         
     def save(self):
