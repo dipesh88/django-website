@@ -1,6 +1,6 @@
 import datetime
 import pickle
-import simplejson
+import json
 from django.conf import settings
 from django.contrib.auth import update_session_auth_hash,authenticate
 from django.core.urlresolvers import reverse,reverse_lazy
@@ -37,7 +37,7 @@ def auth_ajax(request):
     else:
         response = {'password':'fail'}
         
-    return HttpResponse(simplejson.dumps(response), content_type="application/json")
+    return HttpResponse(json.dumps(response), content_type="application/json")
         
 
 class UserSettingsView(generic.FormView):
