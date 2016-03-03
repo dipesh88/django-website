@@ -37,6 +37,7 @@ AUTHENTICATION_BACKENDS = (
 DEBUG = False
 DEBUG_SEND_EMAIL = True
 DEBUG_ALLOW_NON_UNIQUE_EMAIL = False
+DEBUG_IGNORE_DEMO_ACCOUNTS = False # for testing, allow all user id to save, edit and delete data
 # Activate logging.debug() messages, to the log file at mysite/logs/debug.log
 DEBUG_LOG = False 
 # Activate django auto db logger, to the log file at mysite/logs/debug_db.log.

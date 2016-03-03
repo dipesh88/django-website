@@ -21,6 +21,9 @@ class DemoUserReadOnly(Exception):
 def demo_users_read_only(sender,**kwargs):
     """ raises exception for user models, and before search post_save"""
     
+    if settings.DEBUG and settings.DEBUG_IGNORE_DEMO_ACCOUNTS:
+        return
+    
     instance = kwargs['instance']
     if sender == User and instance.id in settings.DEMO_USERS:
         if list(kwargs['update_fields']) == ['last_login']:
