@@ -16,5 +16,6 @@ class EditFirstExpenseAction(SeleniumWebActionBase):
         
         exp_month = login_pages.ExpensesMonthPage(browser=self.browser,expenses=expenses)
         exp_details = login_pages.ExpenseDetailsPage(browser=exp_month.expenses[0].details())
-        return login_pages.ExpenseEditPage(browser=exp_details.edit())
+        exp_edit =  login_pages.ExpenseEditPage(browser=exp_details.edit())
+        return exp_edit.browser
         
