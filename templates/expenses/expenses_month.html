@@ -16,7 +16,7 @@
     <button class="btn btn-success save" id="save_approve_success" style="display:none;"> Saved </button>
     
     {% if locked_expenses %}
-        <a href="{{ balance_url }}" class="btn btn-info"> This month is balanced</a> 
+        <a href="{{ balance_url }}?approved=yes" class="btn btn-info"> This month is balanced</a> 
     {% endif %}
     
 {% endblock page_nav %}
