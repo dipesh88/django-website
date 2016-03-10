@@ -33,10 +33,15 @@ class WebElementHtmlBase(WebElementBase):
     def element_type(self):
         ''' the element HTML type: div, form, etc'''
         return self._element_type
+    
     @element_type.setter
     def element_type(self,element_type):
         self._element_type = element_type
         return self.element.tag_name == self.element_type  # allows other tag, caller should check
+    
+    @property 
+    def text(self):        
+        return self.element.text    
     
     
 class WebElementById(WebElementHtmlBase):
@@ -96,16 +101,11 @@ class WebElementByXPath(WebElementHtmlBase):
     def element_xpath(self,element_xpath):
         self._element_xpath = element_xpath
         self.element = self.wrapper.get_html_element_by_xpath(self.element_xpath)
-
-    def set_element_by_xpath_template(self,*args):
-
-        self.element_xpath = self.xpath_template%tuple(args)
         
-    
-    def new_element_by_xpath_template(self,*args):
+    def new_element(self,xpath):
+        """get new child element based on the relative xpath to the element xpath"""
         
         new_element = self.__class__.__new__(self.__class__)
         new_element.__init__(browser=self.browser)
-        new_element.xpath_template = self.xpath_template
-        new_element.set_element_by_xpath_template(*args)
+        new_element.element_xpath = self.element_xpath + xpath
         return new_element

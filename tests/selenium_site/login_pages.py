@@ -138,8 +138,7 @@ class ExpensesMonthPage(LoginPage):
 
         url = '/expenses/'
         super(ExpensesMonthPage,self).__init__(url=url,*args,**kwargs)
-        self._expense_base = elements_base.WebElementByXPath(browser=self.browser)
-        self._expense_base.xpath_template = '//*[@id="expenses_table"]/tbody/tr[%s]'
+        self._xpath_template = '//*[@id="expenses_table"]/tbody/tr[%s]'
         if kwargs.has_key('expenses'):
             self.expenses = kwargs['expenses']
             
@@ -151,8 +150,8 @@ class ExpensesMonthPage(LoginPage):
     def expenses(self,expenses_on_page):
         self._expenses = []
         for m in range(2,expenses_on_page+2):
-            expense = self._expense_base.new_element_by_xpath_template(m)
-            self._expenses.append(elements.ExpenseRowElement(expense))
+            expense = elements.ExpenseRowElement(browser=self.browser,xpath=self._xpath_template%m)
+            self._expenses.append(expense)
             
     
         
