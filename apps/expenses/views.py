@@ -204,7 +204,6 @@ class ExpenseView(ModelToHtmlMixin,generic.DetailView):
     
     template_name = "expenses/expense_details.html"
     context_object_name = "expense"
-    form_class = ExpenseOwnerForm
     
     model_to_html = Expense
     model_to_html_fields = expense_views_fields
