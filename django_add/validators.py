@@ -6,8 +6,8 @@ from ..utils.misc import last_day_of_month,last_day_of_prev_month
 
 def verify_month_int(value):
     
-    if value not in range(1,12):
-        raise ValidationError(message='Please select a month 1-12')
+    if value not in range(1,13):
+        raise ValidationError(message='Please select a month')
     
 def verify_month_is_before_this_month(year,month,raise_exception=True):
     
