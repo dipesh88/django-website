@@ -2,11 +2,11 @@ from django.http import Http404
 from django.shortcuts import render
 from django.views import generic
 
-from ...utils.view_utils import update_pagination_context
+from ...utils.view_utils import PaginationContextMixin
 from .models import SearchItems
 from .forms import SearchForm
 
-class SearchView(generic.ListView):
+class SearchView(generic.ListView,PaginationContextMixin):
     
     template_name = "search/results.html"
     
@@ -26,7 +26,7 @@ class SearchView(generic.ListView):
     def get_context_data(self,*args,**kwargs):
         
         context = super(SearchView,self).get_context_data(*args,**kwargs)
-        update_pagination_context(self.request,context,self.object_list)
+        self.update_pagination_context(context)
         
         return context
         

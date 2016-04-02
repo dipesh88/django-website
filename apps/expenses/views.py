@@ -8,7 +8,7 @@ from django.shortcuts import render,get_object_or_404,redirect
 from django.views import generic
 from django.views.decorators.http import require_POST
 
-from ...utils.view_utils import update_pagination_context,ModelToHtmlMixin
+from ...utils.view_utils import PaginationContextMixin,ModelToHtmlMixin
 
 from .helpers import multiple_approval
 from .forms import ExpenseOwnerForm,ExpenseApproveForm,ExpenseChangeBalanceMonth
@@ -55,7 +55,7 @@ class MonthlyExpensesBaseView(generic.ListView):
         return Expense.monthly_expenses.by_month(month=int(self.kwargs['month']),
                                                        year=int(self.kwargs['year'])).filter(account=self.request.user.account)
     
-class MonthlyExpensesAllView(MonthlyExpensesBaseView):
+class MonthlyExpensesAllView(MonthlyExpensesBaseView,PaginationContextMixin):
     
     def get_queryset(self):
 
@@ -93,7 +93,7 @@ class MonthlyExpensesAllView(MonthlyExpensesBaseView):
         
         
         # pagination
-        update_pagination_context(self.request,context,self.object_list)
+        self.update_pagination_context(context)
        
         return dict(context,**self.kwargs)
     
