@@ -46,7 +46,7 @@ DEBUG_DB_LOG = False
 
 
 # Change this in settings_production
-ALLOWED_HOSTS = ['127.0.0.1','localhost']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = (
